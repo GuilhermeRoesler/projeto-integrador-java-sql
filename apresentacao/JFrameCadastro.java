@@ -21,11 +21,11 @@ public class JFrameCadastro extends JFrame {
 
 	private JPanel contentPane;
 	private JLabel lblEmail, lblRepetirEmail, lblSenha, lblRepetirSenha, lblDadosCadastrais, lblNome, lblSobrenome,
-	lblSexo, lblCPF, lblTelefone, lblCelular, lblNascimento, lblEnderecoEntrega, lblCEP, lblRua, lblNumero,
-	lblComplemento, lblReferencia, lblBairro, lblCidade, lblEstado;
+			lblSexo, lblCPF, lblTelefone, lblCelular, lblNascimento, lblEnderecoEntrega, lblCEP, lblRua, lblNumero,
+			lblComplemento, lblReferencia, lblBairro, lblCidade, lblEstado;
 	private JTextField txtEmail, txtRepetirEmail, txtSenha, txtRepetirSenha, txtNome, txtSobrenome, txtSexo, txtCPF,
-	txtTelefone, txtCelular, txtNascimento, txtCEP, txtRua, txtNumero, txtComplemento, txtReferencia, txtBairro,
-	txtCidade, txtEstado;
+			txtTelefone, txtCelular, txtNascimento, txtCEP, txtRua, txtNumero, txtComplemento, txtReferencia, txtBairro,
+			txtCidade, txtEstado;
 	private JRadioButton rdbtnPessoaFisica, rdbtnPessoaJurdica;
 	private JCheckBox chboxOfertas, chboxNumero;
 
@@ -139,27 +139,33 @@ public class JFrameCadastro extends JFrame {
 		rdbtnPessoaJurdica.setBounds(171, 173, 149, 23);
 		contentPane.add(rdbtnPessoaJurdica);
 
+		// lblEnderecoEntrega
 		lblEnderecoEntrega = new JLabel("Endereço de entrega");
 		lblEnderecoEntrega.setFont(new Font("Gentium Book Basic", Font.BOLD, 14));
 		lblEnderecoEntrega.setBounds(366, 112, 198, 67);
 		contentPane.add(lblEnderecoEntrega);
 
+		//lblCEP
 		lblCEP = new JLabel("CEP:");
 		lblCEP.setBounds(400, 208, lblWidth, 32);
 		contentPane.add(lblCEP);
 
+		// lblRua
 		lblRua = new JLabel("Rua:");
 		lblRua.setBounds(388, 235, lblWidth, 32);
 		contentPane.add(lblRua);
 
+		//lblNumero
 		lblNumero = new JLabel("Número:");
 		lblNumero.setBounds(388, 264, lblWidth, 32);
 		contentPane.add(lblNumero);
 
+		//chboxNumero
 		chboxNumero = new JCheckBox("Sem número");
 		chboxNumero.setBounds(462, 300, 203, 15);
 		contentPane.add(chboxNumero);
 
+		//lblComplemento
 		lblComplemento = new JLabel("Complemento:");
 		lblComplemento.setBounds(388, 318, lblWidth, 32);
 		contentPane.add(lblComplemento);
@@ -184,80 +190,95 @@ public class JFrameCadastro extends JFrame {
 		lblEstado.setBounds(388, 428, lblWidth, 33);
 		contentPane.add(lblEstado);
 
+		// chboxOfertas
 		chboxOfertas = new JCheckBox("Receber ofertas e novidades por e-mail");
 		chboxOfertas.setBounds(75, 410, 311, 15);
 		contentPane.add(chboxOfertas);
 
+		// txtNome
 		txtNome = new JTextField();
 		txtNome.setBounds(143, 215, 114, 19);
 		contentPane.add(txtNome);
 		txtNome.setColumns(10);
 
+		// txtSobrenome
 		txtSobrenome = new JTextField();
 		txtSobrenome.setBounds(143, 244, 114, 19);
 		contentPane.add(txtSobrenome);
 		txtSobrenome.setColumns(10);
 
+		// txtSexo
 		txtSexo = new JTextField();
 		txtSexo.setBounds(143, 271, 114, 19);
 		contentPane.add(txtSexo);
 		txtSexo.setColumns(10);
 
+		// txtCPF
 		txtCPF = new JTextField();
 		txtCPF.setBounds(143, 300, 114, 19);
 		contentPane.add(txtCPF);
 		txtCPF.setColumns(10);
 
+		// txtTelefone
 		txtTelefone = new JTextField();
 		txtTelefone.setBounds(143, 327, 114, 19);
 		contentPane.add(txtTelefone);
 		txtTelefone.setColumns(10);
 
+		// txtCelular
 		txtCelular = new JTextField();
 		txtCelular.setBounds(143, 354, 114, 19);
 		contentPane.add(txtCelular);
 		txtCelular.setColumns(10);
 
+		// txtNascimento
 		txtNascimento = new JTextField();
 		txtNascimento.setBounds(143, 382, 114, 19);
 		contentPane.add(txtNascimento);
 		txtNascimento.setColumns(10);
 
+		// txtRua
 		txtRua = new JTextField();
 		txtRua.setBounds(462, 242, 114, 19);
 		contentPane.add(txtRua);
 		txtRua.setColumns(10);
 
+		// txtCEP
 		txtCEP = new JTextField();
 		txtCEP.setBounds(462, 215, 114, 19);
 		contentPane.add(txtCEP);
 		txtCEP.setColumns(10);
 
+		// txtNumero
 		txtNumero = new JTextField();
 		txtNumero.setBounds(462, 271, 114, 19);
 		contentPane.add(txtNumero);
 		txtNumero.setColumns(10);
 
+		// txtComplemento
 		txtComplemento = new JTextField();
 		txtComplemento.setBounds(491, 323, 114, 19);
 		contentPane.add(txtComplemento);
 		txtComplemento.setColumns(10);
 
-		txtReferencia = new JTextField();
+		// txtReferencia
 		txtReferencia.setBounds(491, 352, 114, 19);
 		contentPane.add(txtReferencia);
 		txtReferencia.setColumns(10);
 
+		// txtBairro
 		txtBairro = new JTextField();
 		txtBairro.setBounds(491, 382, 114, 19);
 		contentPane.add(txtBairro);
 		txtBairro.setColumns(10);
 
+		// txtCidade
 		txtCidade = new JTextField();
 		txtCidade.setBounds(491, 410, 114, 19);
 		contentPane.add(txtCidade);
 		txtCidade.setColumns(10);
 
+		// txtEstado
 		txtEstado = new JTextField();
 		txtEstado.setBounds(491, 442, 114, 19);
 		contentPane.add(txtEstado);
