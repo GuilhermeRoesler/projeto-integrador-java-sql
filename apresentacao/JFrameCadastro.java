@@ -9,6 +9,10 @@ import javax.swing.JRadioButton;
 import javax.swing.JCheckBox;
 import java.awt.Font;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.SwingConstants;
+import java.awt.Color;
 
 public class JFrameCadastro extends JFrame {
 
@@ -16,23 +20,24 @@ public class JFrameCadastro extends JFrame {
 	private final int lblX1 = 50;
 	private final int lblX2 = 400;
 	private final int txtX1 = 140;
-	private final int txtX2 = 500;
+	private final int txtX2 = 510;
 	private final int lblWidth = 90;
 	private final int lblHeight = 15;
 	private final int txtWidth = 115;
 	private final int txtHeight = 20;
+	private final int btnWidth = 100;
+	private final int btnHeight = 25;
 
 	private JPanel contentPane;
-	private JLabel lblEmail, lblRepetirEmail, lblSenha, lblRepetirSenha, lblDadosCadastrais, lblNome, lblSobrenome,
-			lblSexo, lblCPF, lblTelefone, lblCelular, lblNascimento, lblEnderecoEntrega, lblCEP, lblRua, lblNumero,
-			lblComplemento, lblReferencia, lblBairro, lblCidade, lblEstado;
+	private JLabel lblCadastro, lblEmail, lblRepetirEmail, lblSenha, lblRepetirSenha, lblDadosCadastrais, lblNome,
+			lblSobrenome, lblSexo, lblCPF, lblTelefone, lblCelular, lblNascimento, lblEndereco, lblCEP, lblRua,
+			lblNumero, lblComplemento, lblReferencia, lblBairro, lblCidade, lblEstado;
 	private JTextField txtEmail, txtRepetirEmail, txtSenha, txtRepetirSenha, txtNome, txtSobrenome, txtSexo, txtCPF,
 			txtTelefone, txtCelular, txtNascimento, txtCEP, txtRua, txtNumero, txtComplemento, txtReferencia, txtBairro,
 			txtCidade, txtEstado;
 	private JRadioButton rdbtnPessoaFisica, rdbtnPessoaJurdica;
 	private JCheckBox chboxOfertas, chboxNumero;
-	private JButton btnNewButton;
-	private JButton btnExit;
+	private JButton btnEnviar, btnRandom, btnExit;
 
 	public JFrameCadastro() {
 		initComponents();
@@ -43,60 +48,85 @@ public class JFrameCadastro extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 816, 594);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(238, 238, 238));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+
+		// lblCadastro
+		lblCadastro = new JLabel("Cadastro");
+		lblCadastro.setHorizontalAlignment(SwingConstants.CENTER);
+		lblCadastro.setFont(new Font("Nimbus Sans", Font.BOLD, 42));
+		lblCadastro.setBounds(295, 0, 203, 54);
+		contentPane.add(lblCadastro);
 
 		// lblEmail
 		lblEmail = new JLabel("E-mail:");
 		lblEmail.setBounds(lblX1, 67, lblWidth, lblHeight);
 		contentPane.add(lblEmail);
 
-		// txtEmail
-		txtEmail = new JTextField();
-		txtEmail.setBounds(txtX1, 67, txtWidth, txtHeight);
-		contentPane.add(txtEmail);
-		txtEmail.setColumns(10);
-
 		// lblRepetirEmail
 		lblRepetirEmail = new JLabel("Repetir e-mail:");
-		lblRepetirEmail.setBounds(lblX1, 100, lblWidth, lblHeight);
+		lblRepetirEmail.setBounds(lblX1, 100, lblWidth + 20, lblHeight);
 		contentPane.add(lblRepetirEmail);
+
+		// lblSenha
+		lblSenha = new JLabel("Crie uma senha:");
+		lblSenha.setBounds(lblX2, 69, lblWidth + 30, lblHeight);
+		contentPane.add(lblSenha);
+
+		// lblRepetirSenha
+		lblRepetirSenha = new JLabel("Repetir senha:");
+		lblRepetirSenha.setBounds(lblX2, 98, lblWidth + 30, lblHeight);
+		contentPane.add(lblRepetirSenha);
+
+		// txtEmail
+		txtEmail = new JTextField();
+		txtEmail.setBounds(txtX1 + 20, 67, txtWidth, txtHeight);
+		contentPane.add(txtEmail);
+		txtEmail.setColumns(10);
 
 		// txtRepetirEmail
 		txtRepetirEmail = new JTextField();
 		txtRepetirEmail.setColumns(10);
-		txtRepetirEmail.setBounds(txtX1, 98, txtWidth, txtHeight);
+		txtRepetirEmail.setBounds(txtX1 + 20, 98, txtWidth, txtHeight);
 		contentPane.add(txtRepetirEmail);
-
-		// lblSenha
-		lblSenha = new JLabel("Crie uma senha:");
-		lblSenha.setBounds(lblX2, 69, lblWidth, lblHeight);
-		contentPane.add(lblSenha);
 
 		// txtSenha
 		txtSenha = new JTextField();
-		txtSenha.setBounds(txtX2, 67, txtWidth, txtHeight);
+		txtSenha.setBounds(txtX2 + 20, 67, txtWidth, txtHeight);
 		contentPane.add(txtSenha);
 		txtSenha.setColumns(10);
-
-		// lblRepetirSenha
-		lblRepetirSenha = new JLabel("Repetir senha:");
-		lblRepetirSenha.setBounds(lblX2, 98, lblWidth, lblHeight);
-		contentPane.add(lblRepetirSenha);
 
 		// txtRepetirSenha
 		txtRepetirSenha = new JTextField();
 		txtRepetirSenha.setColumns(10);
-		txtRepetirSenha.setBounds(txtX2, 98, txtWidth, txtHeight);
+		txtRepetirSenha.setBounds(txtX2 + 20, 98, txtWidth, txtHeight);
 		contentPane.add(txtRepetirSenha);
 
 		// lblDadosCadastrais
 		lblDadosCadastrais = new JLabel("Dados cadastrais");
-		lblDadosCadastrais.setFont(new Font("Gentium Book Basic", Font.BOLD, 20));
-		lblDadosCadastrais.setBounds(lblX1, 118, 136, 54);
+		lblDadosCadastrais.setFont(new Font("Gidugu", Font.BOLD, 26));
+		lblDadosCadastrais.setBounds(lblX1, 130, 170, 30);
 		contentPane.add(lblDadosCadastrais);
+
+		// lblEndereco
+		lblEndereco = new JLabel("Endereco");
+		lblEndereco.setFont(new Font("Gidugu", Font.BOLD, 26));
+		lblEndereco.setBounds(lblX2, 130, 170, 30);
+		contentPane.add(lblEndereco);
+
+		// rdbtnPessoaFisica
+		rdbtnPessoaFisica = new JRadioButton("Pessoa física");
+		rdbtnPessoaFisica.setSelected(true);
+		rdbtnPessoaFisica.setBounds(lblX1, 173, 130, 23);
+		contentPane.add(rdbtnPessoaFisica);
+
+		// rdbtnPessoaJurdica
+		rdbtnPessoaJurdica = new JRadioButton("Pessoa jurídica");
+		rdbtnPessoaJurdica.setBounds(lblX1 + 130, 173, 149, 23);
+		contentPane.add(rdbtnPessoaJurdica);
 
 		// lblNome
 		lblNome = new JLabel("Nome:");
@@ -133,24 +163,7 @@ public class JFrameCadastro extends JFrame {
 		lblNascimento.setBounds(lblX1, 386, lblWidth, lblHeight);
 		contentPane.add(lblNascimento);
 
-		// rdbtnPessoaFisica
-		rdbtnPessoaFisica = new JRadioButton("Pessoa física");
-		rdbtnPessoaFisica.setSelected(true);
-		rdbtnPessoaFisica.setBounds(37, 173, 136, 23);
-		contentPane.add(rdbtnPessoaFisica);
-
-		// rdbtnPessoaJurdica
-		rdbtnPessoaJurdica = new JRadioButton("Pessoa jurídica");
-		rdbtnPessoaJurdica.setBounds(171, 173, 149, 23);
-		contentPane.add(rdbtnPessoaJurdica);
-
-		// lblEnderecoEntrega
-		lblEnderecoEntrega = new JLabel("Endereço de entrega");
-		lblEnderecoEntrega.setFont(new Font("Gentium Book Basic", Font.BOLD, 14));
-		lblEnderecoEntrega.setBounds(lblX2, 112, 198, 67);
-		contentPane.add(lblEnderecoEntrega);
-
-		//lblCEP
+		// lblCEP
 		lblCEP = new JLabel("CEP:");
 		lblCEP.setBounds(lblX2, 208, lblWidth, lblHeight);
 		contentPane.add(lblCEP);
@@ -160,19 +173,19 @@ public class JFrameCadastro extends JFrame {
 		lblRua.setBounds(lblX2, 235, lblWidth, lblHeight);
 		contentPane.add(lblRua);
 
-		//lblNumero
+		// lblNumero
 		lblNumero = new JLabel("Número:");
 		lblNumero.setBounds(lblX2, 264, lblWidth, lblHeight);
 		contentPane.add(lblNumero);
 
-		//chboxNumero
+		// chboxNumero
 		chboxNumero = new JCheckBox("Sem número");
 		chboxNumero.setBounds(lblX2, 300, 203, 15);
 		contentPane.add(chboxNumero);
 
-		//lblComplemento
+		// lblComplemento
 		lblComplemento = new JLabel("Complemento:");
-		lblComplemento.setBounds(lblX2, 318, lblWidth, lblHeight);
+		lblComplemento.setBounds(lblX2, 318, lblWidth + 20, lblHeight);
 		contentPane.add(lblComplemento);
 
 		// lblReferencia
@@ -289,22 +302,27 @@ public class JFrameCadastro extends JFrame {
 		txtEstado.setBounds(txtX2, 442, txtWidth, txtHeight);
 		contentPane.add(txtEstado);
 		txtEstado.setColumns(10);
-		
-		JButton btnEnviar = new JButton("Enviar");
-		btnEnviar.setBounds(670, 497, 115, 25);
+
+		// btnEnviar
+		btnEnviar = new JButton("Enviar");
+		btnEnviar.setBounds(704, 520, btnWidth, btnHeight);
 		contentPane.add(btnEnviar);
-		
-		JLabel lblNewLabel = new JLabel("Cadastro");
-		lblNewLabel.setFont(new Font("Nimbus Sans", Font.BOLD, 42));
-		lblNewLabel.setBounds(295, 0, 203, 77);
-		contentPane.add(lblNewLabel);
-		
-		btnNewButton = new JButton("Aleatório");
-		btnNewButton.setBounds(50, 497, 117, 25);
-		contentPane.add(btnNewButton);
-		
+
+		// btnRandom
+		btnRandom = new JButton("Random");
+		btnRandom.setBounds(12, 520, btnWidth, btnHeight);
+		btnRandom.setContentAreaFilled(false);
+		btnRandom.setBorderPainted(false);
+		contentPane.add(btnRandom);
+
+		// btnExit
 		btnExit = new JButton("Saida");
-		btnExit.setBounds(576, 499, 79, 20);
+		btnExit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(1);
+			}
+		});
+		btnExit.setBounds(592, 520, btnWidth, btnHeight);
 		contentPane.add(btnExit);
 	}
 }
