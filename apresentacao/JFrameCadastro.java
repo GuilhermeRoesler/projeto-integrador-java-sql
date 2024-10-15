@@ -8,6 +8,7 @@ import javax.swing.JTextField;
 import javax.swing.JRadioButton;
 import javax.swing.JCheckBox;
 import java.awt.Font;
+import javax.swing.JButton;
 
 public class JFrameCadastro extends JFrame {
 
@@ -30,6 +31,8 @@ public class JFrameCadastro extends JFrame {
 			txtCidade, txtEstado;
 	private JRadioButton rdbtnPessoaFisica, rdbtnPessoaJurdica;
 	private JCheckBox chboxOfertas, chboxNumero;
+	private JButton btnNewButton;
+	private JButton btnExit;
 
 	public JFrameCadastro() {
 		initComponents();
@@ -286,5 +289,22 @@ public class JFrameCadastro extends JFrame {
 		txtEstado.setBounds(txtX2, 442, txtWidth, txtHeight);
 		contentPane.add(txtEstado);
 		txtEstado.setColumns(10);
+		
+		JButton btnEnviar = new JButton("Enviar");
+		btnEnviar.setBounds(670, 497, 115, 25);
+		contentPane.add(btnEnviar);
+		
+		JLabel lblNewLabel = new JLabel("Cadastro");
+		lblNewLabel.setFont(new Font("Nimbus Sans", Font.BOLD, 42));
+		lblNewLabel.setBounds(295, 0, 203, 77);
+		contentPane.add(lblNewLabel);
+		
+		btnNewButton = new JButton("Aleatório");
+		btnNewButton.setBounds(50, 497, 117, 25);
+		contentPane.add(btnNewButton);
+		
+		btnExit = new JButton("Saida");
+		btnExit.setBounds(576, 499, 79, 20);
+		contentPane.add(btnExit);
 	}
 }
