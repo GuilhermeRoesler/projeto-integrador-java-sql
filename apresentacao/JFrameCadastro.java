@@ -14,6 +14,8 @@ public class JFrameCadastro extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private final int lblX1 = 50;
 	private final int lblX2 = 400;
+	private final int txtX1 = 140;
+	private final int txtX2 = 500;
 	private final int lblWidth = 90;
 	private final int lblHeight = 15;
 	private final int txtWidth = 115;
@@ -45,87 +47,87 @@ public class JFrameCadastro extends JFrame {
 
 		// lblEmail
 		lblEmail = new JLabel("E-mail:");
-		lblEmail.setBounds(50, 67, 92, 18);
+		lblEmail.setBounds(lblX1, 67, lblWidth, lblHeight);
 		contentPane.add(lblEmail);
 
 		// txtEmail
 		txtEmail = new JTextField();
-		txtEmail.setBounds(132, 67, 114, 19);
+		txtEmail.setBounds(txtX1, 67, txtWidth, txtHeight);
 		contentPane.add(txtEmail);
 		txtEmail.setColumns(10);
 
 		// lblRepetirEmail
 		lblRepetirEmail = new JLabel("Repetir e-mail:");
-		lblRepetirEmail.setBounds(26, 100, 160, 15);
+		lblRepetirEmail.setBounds(lblX1, 100, lblWidth, lblHeight);
 		contentPane.add(lblRepetirEmail);
 
 		// txtRepetirEmail
 		txtRepetirEmail = new JTextField();
 		txtRepetirEmail.setColumns(10);
-		txtRepetirEmail.setBounds(132, 98, 114, 19);
+		txtRepetirEmail.setBounds(txtX1, 98, txtWidth, txtHeight);
 		contentPane.add(txtRepetirEmail);
 
 		// lblSenha
 		lblSenha = new JLabel("Crie uma senha:");
-		lblSenha.setBounds(263, 69, 188, 15);
+		lblSenha.setBounds(lblX2, 69, lblWidth, lblHeight);
 		contentPane.add(lblSenha);
 
 		// txtSenha
 		txtSenha = new JTextField();
-		txtSenha.setBounds(388, 67, 114, 19);
+		txtSenha.setBounds(txtX2, 67, txtWidth, txtHeight);
 		contentPane.add(txtSenha);
 		txtSenha.setColumns(10);
 
 		// lblRepetirSenha
 		lblRepetirSenha = new JLabel("Repetir senha:");
-		lblRepetirSenha.setBounds(263, 98, 188, 15);
+		lblRepetirSenha.setBounds(lblX2, 98, lblWidth, lblHeight);
 		contentPane.add(lblRepetirSenha);
 
 		// txtRepetirSenha
 		txtRepetirSenha = new JTextField();
 		txtRepetirSenha.setColumns(10);
-		txtRepetirSenha.setBounds(388, 98, 114, 19);
+		txtRepetirSenha.setBounds(txtX2, 98, txtWidth, txtHeight);
 		contentPane.add(txtRepetirSenha);
 
 		// lblDadosCadastrais
 		lblDadosCadastrais = new JLabel("Dados cadastrais");
-		lblDadosCadastrais.setFont(new Font("Gentium Book Basic", Font.BOLD, 14));
-		lblDadosCadastrais.setBounds(36, 118, 136, 54);
+		lblDadosCadastrais.setFont(new Font("Gentium Book Basic", Font.BOLD, 20));
+		lblDadosCadastrais.setBounds(lblX1, 118, 136, 54);
 		contentPane.add(lblDadosCadastrais);
 
 		// lblNome
 		lblNome = new JLabel("Nome:");
-		lblNome.setBounds(50, 217, lblWidth, 15);
+		lblNome.setBounds(lblX1, 217, lblWidth, lblHeight);
 		contentPane.add(lblNome);
 
 		// lblSobrenome
 		lblSobrenome = new JLabel("Sobrenome:");
-		lblSobrenome.setBounds(50, 244, lblWidth, 15);
+		lblSobrenome.setBounds(lblX1, 244, lblWidth, lblHeight);
 		contentPane.add(lblSobrenome);
 
 		// lblSexo
 		lblSexo = new JLabel("Sexo:");
-		lblSexo.setBounds(50, 273, lblWidth, 15);
+		lblSexo.setBounds(lblX1, 273, lblWidth, lblHeight);
 		contentPane.add(lblSexo);
 
 		// lblCPF
 		lblCPF = new JLabel("CPF:");
-		lblCPF.setBounds(50, 300, lblWidth, 15);
+		lblCPF.setBounds(lblX1, 300, lblWidth, lblHeight);
 		contentPane.add(lblCPF);
 
 		// lblTelefone
 		lblTelefone = new JLabel("Telefone:");
-		lblTelefone.setBounds(42, 327, lblWidth, 15);
+		lblTelefone.setBounds(lblX1, 327, lblWidth, lblHeight);
 		contentPane.add(lblTelefone);
 
 		// lblCelular
 		lblCelular = new JLabel("Celular:");
-		lblCelular.setBounds(50, 359, lblWidth, 15);
+		lblCelular.setBounds(lblX1, 359, lblWidth, lblHeight);
 		contentPane.add(lblCelular);
 
 		// lblNascimento
 		lblNascimento = new JLabel("Nascimento:");
-		lblNascimento.setBounds(50, 386, lblWidth, 15);
+		lblNascimento.setBounds(lblX1, 386, lblWidth, lblHeight);
 		contentPane.add(lblNascimento);
 
 		// rdbtnPessoaFisica
@@ -142,145 +144,146 @@ public class JFrameCadastro extends JFrame {
 		// lblEnderecoEntrega
 		lblEnderecoEntrega = new JLabel("Endereço de entrega");
 		lblEnderecoEntrega.setFont(new Font("Gentium Book Basic", Font.BOLD, 14));
-		lblEnderecoEntrega.setBounds(366, 112, 198, 67);
+		lblEnderecoEntrega.setBounds(lblX2, 112, 198, 67);
 		contentPane.add(lblEnderecoEntrega);
 
 		//lblCEP
 		lblCEP = new JLabel("CEP:");
-		lblCEP.setBounds(400, 208, lblWidth, 32);
+		lblCEP.setBounds(lblX2, 208, lblWidth, lblHeight);
 		contentPane.add(lblCEP);
 
 		// lblRua
 		lblRua = new JLabel("Rua:");
-		lblRua.setBounds(388, 235, lblWidth, 32);
+		lblRua.setBounds(lblX2, 235, lblWidth, lblHeight);
 		contentPane.add(lblRua);
 
 		//lblNumero
 		lblNumero = new JLabel("Número:");
-		lblNumero.setBounds(388, 264, lblWidth, 32);
+		lblNumero.setBounds(lblX2, 264, lblWidth, lblHeight);
 		contentPane.add(lblNumero);
 
 		//chboxNumero
 		chboxNumero = new JCheckBox("Sem número");
-		chboxNumero.setBounds(462, 300, 203, 15);
+		chboxNumero.setBounds(lblX2, 300, 203, 15);
 		contentPane.add(chboxNumero);
 
 		//lblComplemento
 		lblComplemento = new JLabel("Complemento:");
-		lblComplemento.setBounds(388, 318, lblWidth, 32);
+		lblComplemento.setBounds(lblX2, 318, lblWidth, lblHeight);
 		contentPane.add(lblComplemento);
 
 		// lblReferencia
 		lblReferencia = new JLabel("Referência:");
-		lblReferencia.setBounds(388, 345, lblWidth, 32);
+		lblReferencia.setBounds(lblX2, 345, lblWidth, lblHeight);
 		contentPane.add(lblReferencia);
 
 		// lblBairro
 		lblBairro = new JLabel("Bairro:");
-		lblBairro.setBounds(388, 377, lblWidth, 32);
+		lblBairro.setBounds(lblX2, 377, lblWidth, lblHeight);
 		contentPane.add(lblBairro);
 
 		// lblCidade
 		lblCidade = new JLabel("Cidade:");
-		lblCidade.setBounds(388, 401, lblWidth, 32);
+		lblCidade.setBounds(lblX2, 401, lblWidth, lblHeight);
 		contentPane.add(lblCidade);
 
 		// lblEstado
 		lblEstado = new JLabel("Estado:");
-		lblEstado.setBounds(388, 428, lblWidth, 33);
+		lblEstado.setBounds(lblX2, 428, lblWidth, lblHeight);
 		contentPane.add(lblEstado);
 
 		// chboxOfertas
 		chboxOfertas = new JCheckBox("Receber ofertas e novidades por e-mail");
-		chboxOfertas.setBounds(75, 410, 311, 15);
+		chboxOfertas.setBounds(lblX1, 410, 311, 15);
 		contentPane.add(chboxOfertas);
 
 		// txtNome
 		txtNome = new JTextField();
-		txtNome.setBounds(143, 215, 114, 19);
+		txtNome.setBounds(txtX1, 215, txtWidth, txtHeight);
 		contentPane.add(txtNome);
 		txtNome.setColumns(10);
 
 		// txtSobrenome
 		txtSobrenome = new JTextField();
-		txtSobrenome.setBounds(143, 244, 114, 19);
+		txtSobrenome.setBounds(txtX1, 244, txtWidth, txtHeight);
 		contentPane.add(txtSobrenome);
 		txtSobrenome.setColumns(10);
 
 		// txtSexo
 		txtSexo = new JTextField();
-		txtSexo.setBounds(143, 271, 114, 19);
+		txtSexo.setBounds(txtX1, 271, txtWidth, txtHeight);
 		contentPane.add(txtSexo);
 		txtSexo.setColumns(10);
 
 		// txtCPF
 		txtCPF = new JTextField();
-		txtCPF.setBounds(143, 300, 114, 19);
+		txtCPF.setBounds(txtX1, 300, txtWidth, txtHeight);
 		contentPane.add(txtCPF);
 		txtCPF.setColumns(10);
 
 		// txtTelefone
 		txtTelefone = new JTextField();
-		txtTelefone.setBounds(143, 327, 114, 19);
+		txtTelefone.setBounds(txtX1, 327, txtWidth, txtHeight);
 		contentPane.add(txtTelefone);
 		txtTelefone.setColumns(10);
 
 		// txtCelular
 		txtCelular = new JTextField();
-		txtCelular.setBounds(143, 354, 114, 19);
+		txtCelular.setBounds(txtX1, 354, txtWidth, txtHeight);
 		contentPane.add(txtCelular);
 		txtCelular.setColumns(10);
 
 		// txtNascimento
 		txtNascimento = new JTextField();
-		txtNascimento.setBounds(143, 382, 114, 19);
+		txtNascimento.setBounds(txtX1, 382, txtWidth, txtHeight);
 		contentPane.add(txtNascimento);
 		txtNascimento.setColumns(10);
 
 		// txtRua
 		txtRua = new JTextField();
-		txtRua.setBounds(462, 242, 114, 19);
+		txtRua.setBounds(txtX2, 242, txtWidth, txtHeight);
 		contentPane.add(txtRua);
 		txtRua.setColumns(10);
 
 		// txtCEP
 		txtCEP = new JTextField();
-		txtCEP.setBounds(462, 215, 114, 19);
+		txtCEP.setBounds(txtX2, 215, txtWidth, txtHeight);
 		contentPane.add(txtCEP);
 		txtCEP.setColumns(10);
 
 		// txtNumero
 		txtNumero = new JTextField();
-		txtNumero.setBounds(462, 271, 114, 19);
+		txtNumero.setBounds(txtX2, 271, txtWidth, txtHeight);
 		contentPane.add(txtNumero);
 		txtNumero.setColumns(10);
 
 		// txtComplemento
 		txtComplemento = new JTextField();
-		txtComplemento.setBounds(491, 323, 114, 19);
+		txtComplemento.setBounds(txtX2, 323, txtWidth, txtHeight);
 		contentPane.add(txtComplemento);
 		txtComplemento.setColumns(10);
 
 		// txtReferencia
-		txtReferencia.setBounds(491, 352, 114, 19);
+		txtReferencia = new JTextField();
+		txtReferencia.setBounds(txtX2, 352, txtWidth, txtHeight);
 		contentPane.add(txtReferencia);
 		txtReferencia.setColumns(10);
 
 		// txtBairro
 		txtBairro = new JTextField();
-		txtBairro.setBounds(491, 382, 114, 19);
+		txtBairro.setBounds(txtX2, 382, txtWidth, txtHeight);
 		contentPane.add(txtBairro);
 		txtBairro.setColumns(10);
 
 		// txtCidade
 		txtCidade = new JTextField();
-		txtCidade.setBounds(491, 410, 114, 19);
+		txtCidade.setBounds(txtX2, 410, txtWidth, txtHeight);
 		contentPane.add(txtCidade);
 		txtCidade.setColumns(10);
 
 		// txtEstado
 		txtEstado = new JTextField();
-		txtEstado.setBounds(491, 442, 114, 19);
+		txtEstado.setBounds(txtX2, 442, txtWidth, txtHeight);
 		contentPane.add(txtEstado);
 		txtEstado.setColumns(10);
 	}
