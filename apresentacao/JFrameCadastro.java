@@ -9,7 +9,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JCheckBox;
 import java.awt.Font;
 
-public class JFramePrincipal extends JFrame {
+public class JFrameCadastro extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private final int lblX1 = 50;
@@ -29,7 +29,7 @@ public class JFramePrincipal extends JFrame {
 	private JRadioButton rdbtnPessoaFisica, rdbtnPessoaJurdica;
 	private JCheckBox chboxOfertas, chboxNumero;
 
-	public JFramePrincipal() {
+	public JFrameCadastro() {
 		initComponents();
 	}
 
