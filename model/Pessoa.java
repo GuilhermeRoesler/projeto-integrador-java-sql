@@ -10,6 +10,11 @@ public class Pessoa {
 		this.nome = nome;
 		this.nascimento = nascimento;
 	}
+
+	public Pessoa(String nome, String nascimento) {
+		this.nome = nome;
+		this.nascimento = nascimento;
+	}
 	
 	public Pessoa() {
 		
@@ -37,6 +42,10 @@ public class Pessoa {
 
 	public void setNascimento(String nascimento) {
 		this.nascimento = nascimento;
+	}
+	
+	protected void fixNascimento(String nascimento) {
+		this.nascimento = String.format("%s-%s-%s", nascimento.split("/")[2], nascimento.split("/")[1], nascimento.split("/")[0]);
 	}
 
 }

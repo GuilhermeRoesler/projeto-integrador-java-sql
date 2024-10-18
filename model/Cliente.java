@@ -21,6 +21,23 @@ public class Cliente extends Pessoa {
 		this.telefone = telefone;
 		this.cep = cep;
 		this.cidade = cidade;
+		fixNascimento(nascimento);
+		fixSexo(sexo);
+	}
+	
+	public Cliente(String nome, String nascimento, String sobrenome, String email, String senha,
+			String sexo, String cpf, String telefone, String cep, String cidade) {
+		super(nome, nascimento);
+		this.sobrenome = sobrenome;
+		this.email = email;
+		this.senha = senha;
+		this.sexo = sexo;
+		this.cpf = cpf;
+		this.telefone = telefone;
+		this.cep = cep;
+		this.cidade = cidade;
+		fixNascimento(nascimento);
+		fixSexo(sexo);
 	}
 
 	public String getSobrenome() {
@@ -85,6 +102,16 @@ public class Cliente extends Pessoa {
 
 	public void setCidade(String cidade) {
 		this.cidade = cidade;
+	}
+	
+	private void fixSexo(String sexo) {
+		if (sexo.equals("Masculino")) {
+			this.sexo = "M";
+		} else if (sexo.equals("Feminino")) {
+			this.sexo = "F";
+		} else {
+			System.out.println("Error");
+		}
 	}
 	
 }
