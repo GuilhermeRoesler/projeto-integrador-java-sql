@@ -30,7 +30,7 @@ CREATE TABLE `cliente` (
   `senha` varchar(50) NOT NULL,
   `sexo` char(1) NOT NULL,
   `cpf` char(14) NOT NULL,
-  `telefone` varchar(18) DEFAULT NULL,
+  `telefone` varchar(15) DEFAULT NULL,
   `data_nascimento` date NOT NULL,
   `cep` char(9) DEFAULT NULL,
   `cidade` varchar(50) DEFAULT NULL,
