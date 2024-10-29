@@ -18,7 +18,7 @@ import view.Main;
 public class ClienteDAO {
 	protected String URL = "jdbc:mysql://localhost:3306/music_company";
 	protected String USER = "root";
-	protected String PASS = "91512955";
+	protected String PASS = "root";
 	protected Connection db;
 
 	public ClienteDAO() {
