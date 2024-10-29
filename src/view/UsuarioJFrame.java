@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Dimension;
@@ -25,7 +26,7 @@ public class UsuarioJFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane, panelConfig, pnlHeader, pnlBody;
-	private JButton btnOpcoes, btnConfig, btnDadosPessoais, btnAtividade, btnNotificacoes, btnAjuda, btnDinheiro, btnSair, btnComprarIngresso;
+	private JButton btnHome, btnOpcoes, btnConfig, btnDadosPessoais, btnAtividade, btnNotificacoes, btnAjuda, btnDinheiro, btnSair, btnComprarIngresso;
 	private JLabel lblSeusShows, lblSeusShows2, lblDinheiro, lblBackground;
 	
 	protected static final IngressoComprarJFrame frameIngresso = new IngressoComprarJFrame();
@@ -36,14 +37,18 @@ public class UsuarioJFrame extends JFrame {
 	private int opcoesWidth = 150;
 	private int opcoesHeigth = 50;
 	
-	private Font font1 = new Font("Nimbus Sans", Font.BOLD, 30);
+	private Font font1 = new Font("Nimbus Sans", Font.BOLD, 40);
+	private Font font2 = new Font("Nimbus Sans", Font.BOLD, 28);
 	private ClienteDAO conn;
+	private JLabel lblImagemPerfil;
+	private JLabel lblNome;
 
 		public static void main(String[] args) {
 			EventQueue.invokeLater(new Runnable() {
 				public void run() {
 					try {
 						UsuarioJFrame frame = new UsuarioJFrame();
+						frame.setLocationRelativeTo(null);
 						frame.setVisible(true);
 					} catch (Exception e) {
 						e.printStackTrace();
@@ -85,59 +90,65 @@ public class UsuarioJFrame extends JFrame {
 		panelConfig.setOpaque(false);
 		contentPane.add(panelConfig);
 		
+		// btnHome
+		btnHome = new JButton("Home");
+		btnHome.setBounds(opcoesX, opcoesY + opcoesSeparadorY * 0, opcoesWidth, opcoesHeigth);
+		btnHome.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		contentPane.add(btnHome);
+		
 		// btnOpcoes
 		btnOpcoes = new JButton();
 		btnOpcoes.setText("Opções");
-		btnOpcoes.setBounds(opcoesX, opcoesY + opcoesSeparadorY * 0, opcoesWidth, opcoesHeigth);
+		btnOpcoes.setBounds(opcoesX, opcoesY + opcoesSeparadorY * 1, opcoesWidth, opcoesHeigth);
 		btnOpcoes.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		contentPane.add(btnOpcoes);
 		
 		// btnConfig
 		btnConfig = new JButton();
 		btnConfig.setText("Configurações");
-		btnConfig.setBounds(opcoesX, opcoesY + opcoesSeparadorY * 1, opcoesWidth, opcoesHeigth);
-		contentPane.add(btnConfig);
+		btnConfig.setBounds(opcoesX, opcoesY + opcoesSeparadorY * 2, opcoesWidth, opcoesHeigth);
 		btnConfig.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		contentPane.add(btnConfig);
 		
 		// btnDadosPessoais
 		btnDadosPessoais = new JButton();
 		btnDadosPessoais.setText("Dados Pessoais");
-		btnDadosPessoais.setBounds(opcoesX, opcoesY + opcoesSeparadorY * 2, opcoesWidth, opcoesHeigth);
+		btnDadosPessoais.setBounds(opcoesX, opcoesY + opcoesSeparadorY * 3, opcoesWidth, opcoesHeigth);
 		contentPane.add(btnDadosPessoais);
 		btnDadosPessoais.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		
 		// btnAtividade
 		btnAtividade = new JButton();
 		btnAtividade.setText("Atividade");
-		btnAtividade.setBounds(opcoesX, opcoesY + opcoesSeparadorY * 3, opcoesWidth, opcoesHeigth);
+		btnAtividade.setBounds(opcoesX, opcoesY + opcoesSeparadorY * 4, opcoesWidth, opcoesHeigth);
 		contentPane.add(btnAtividade);
 		btnAtividade.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		
 		// btnNotificacoes
 		btnNotificacoes = new JButton();
 		btnNotificacoes.setText("Notificações");
-		btnNotificacoes.setBounds(opcoesX, opcoesY + opcoesSeparadorY * 4, opcoesWidth, opcoesHeigth);
+		btnNotificacoes.setBounds(opcoesX, opcoesY + opcoesSeparadorY * 5, opcoesWidth, opcoesHeigth);
 		contentPane.add(btnNotificacoes);
 		btnNotificacoes.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		
 		// btnAjuda
 		btnAjuda = new JButton();
 		btnAjuda.setText("Ajuda");
-		btnAjuda.setBounds(opcoesX, opcoesY + opcoesSeparadorY * 5, opcoesWidth, opcoesHeigth);
+		btnAjuda.setBounds(opcoesX, opcoesY + opcoesSeparadorY * 6, opcoesWidth, opcoesHeigth);
 		contentPane.add(btnAjuda);
 		btnAjuda.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		
 		// btnDinheiro
 		btnDinheiro = new JButton();
 		btnDinheiro.setText("Dinheiro");
-		btnDinheiro.setBounds(opcoesX, opcoesY + opcoesSeparadorY * 6, opcoesWidth, opcoesHeigth);
+		btnDinheiro.setBounds(opcoesX, opcoesY + opcoesSeparadorY * 7, opcoesWidth, opcoesHeigth);
 		contentPane.add(btnDinheiro);
 		btnDinheiro.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		
 		// btnSair
 		btnSair = new JButton();
 		btnSair.setText("Sair");
-		btnSair.setBounds(opcoesX, opcoesY + opcoesSeparadorY * 7, opcoesWidth, opcoesHeigth);
+		btnSair.setBounds(opcoesX, opcoesY + opcoesSeparadorY * 8, opcoesWidth, opcoesHeigth);
 		contentPane.add(btnSair);
 		btnSair.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		
@@ -159,7 +170,7 @@ public class UsuarioJFrame extends JFrame {
 		lblSeusShows2.setAlignmentX(Component.CENTER_ALIGNMENT);
 		lblSeusShows2.setHorizontalAlignment(SwingConstants.CENTER);
 		lblSeusShows2.setPreferredSize(new Dimension(100, 50));
-		lblSeusShows2.setFont(font1);
+		lblSeusShows2.setFont(font2);
 		
 		// btnComprarIngresso
 		btnComprarIngresso = new JButton("Comprar ingresso");
@@ -178,12 +189,23 @@ public class UsuarioJFrame extends JFrame {
 		// pnlHeader
 		pnlHeader = new JPanel();
 		pnlHeader.setBounds(0, 0, 1920, 100);
+		pnlHeader.setBackground(Color.red);
 		contentPane.add(pnlHeader);
 		
 		// lblDinheiro
 		lblDinheiro = new JLabel();
 		lblDinheiro.setText("R$0,00");
 		pnlHeader.add(lblDinheiro);
+		
+		// lblImagemPerfil
+		lblImagemPerfil = new JLabel("imagem perfil");
+		lblImagemPerfil.setPreferredSize(new Dimension(50, 50));
+		lblImagemPerfil.setBackground(Color.blue);
+		pnlHeader.add(lblImagemPerfil);
+		
+		// lblNome
+		lblNome = new JLabel("nome");
+		pnlHeader.add(lblNome);
 	}
 	
 	private void addingActionListeners() {
