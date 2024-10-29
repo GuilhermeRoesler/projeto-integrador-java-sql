@@ -34,12 +34,14 @@ CREATE TABLE `cliente` (
   `data_nascimento` date NOT NULL,
   `cep` char(9) DEFAULT NULL,
   `cidade` varchar(50) DEFAULT NULL,
+  `dinheiro` decimal(10,2) DEFAULT NULL,
+  `data_entrada` datetime DEFAULT NULL,
   PRIMARY KEY (`id_cliente`),
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `cpf` (`cpf`),
   UNIQUE KEY `telefone` (`telefone`),
   CONSTRAINT `cliente_chk_1` CHECK (((`sexo` = _utf8mb4'F') or (`sexo` = _utf8mb4'M')))
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -48,6 +50,7 @@ CREATE TABLE `cliente` (
 
 LOCK TABLES `cliente` WRITE;
 /*!40000 ALTER TABLE `cliente` DISABLE KEYS */;
+INSERT INTO `cliente` VALUES (1,'Guilherme','Roesler','admin@gmail.com','12345678','M','789.456.123-00','(91) 98901-2345','2007-05-30','66000-003','São Leopoldo',10000.00,'2024-10-24 19:21:57'),(2,'Maria Vitória','Pires','mariapires@gmail.com','88888933','F','693.759.929-62','(11) 08867-5517','1165-05-08','99212-038','Mossoró',0.00,'2024-10-24 19:33:34'),(3,'Pietro','Antunes','pietroantunes@gmail.com','37760677','M','908.009.223-61','(56) 90046-7870','1643-08-06','37318-814','Itaquaquecetuba',0.00,'2024-10-25 18:45:26'),(4,'Thomas','Moraes','thomasmoraes@gmail.com','05677508','M','138.546.605-42','(84) 24908-8656','1595-05-16','11383-971','Palhoça',0.00,'2024-10-25 18:45:52');
 /*!40000 ALTER TABLE `cliente` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -60,4 +63,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-10-14 16:06:25
+-- Dump completed on 2024-10-29  7:10:13
