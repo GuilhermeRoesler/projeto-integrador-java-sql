@@ -11,7 +11,7 @@ import model.Artista;
 public class ArtistaDAO {
 	protected String URL = "jdbc:mysql://localhost:3306/music_company";
 	protected String USER = "root";
-	protected String PASS = "root";
+	protected String PASS = "91512955";
 	protected Connection db;
 	
 	public ArtistaDAO() {

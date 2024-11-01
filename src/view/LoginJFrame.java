@@ -42,12 +42,14 @@ public class LoginJFrame extends JFrame {
 	private KeyAdapter enterKeyAdapter;
 
 	private ClienteDAO conn;
+	public Cliente mainClient;
 
 	public LoginJFrame(ClienteDAO conn) {
 		setTitle("Login");
 		setResizable(false);
 
 		this.conn = conn;
+		this.mainClient = Main.mainClient;
 		initComponents();
 		initListeners();
 	}
@@ -106,6 +108,12 @@ public class LoginJFrame extends JFrame {
 		tfdSenha.setOpaque(false);
 		tfdSenha.setBorder(null);
 		panel12.add(tfdSenha);
+
+		if (conn.isRememberMeOn()) {
+			tfdEmail.setText(mainClient.getEmail());
+			tfdSenha.setText(mainClient.getSenha());
+			tfdSenha.setEchoChar('•');
+		}
 
 		// btnVerSenha
 		btnVerSenha = new JButton("");
@@ -262,9 +270,19 @@ public class LoginJFrame extends JFrame {
 				String email = tfdEmail.getText();
 				@SuppressWarnings("deprecation")
 				String senha = tfdSenha.getText();
-				Cliente p = new Cliente(email, senha);
+				Cliente clienteVerificacao = new Cliente(email, senha);
 
-				if (conn.login(p)) {
+				if (conn.canLogin(clienteVerificacao)) {
+					// set mainClient
+					mainClient = conn.getByEmail(email);
+					
+					// store mainClient
+					if (chckbxLembrarDeMim.isSelected()) {
+						conn.storeCredentials(mainClient, true);
+					} else {
+						conn.storeCredentials(mainClient, false);
+					}
+					Main.frameUsuario = new UsuarioJFrame(conn, mainClient);
 					Main.frameUsuario.setVisible(true);
 					Main.frameLogin.setVisible(false);
 				} else {

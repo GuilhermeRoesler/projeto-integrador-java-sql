@@ -1,5 +1,10 @@
 package controller;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -9,6 +14,7 @@ import java.sql.SQLIntegrityConstraintViolationException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
@@ -18,7 +24,7 @@ import view.Main;
 public class ClienteDAO {
 	protected String URL = "jdbc:mysql://localhost:3306/music_company";
 	protected String USER = "root";
-	protected String PASS = "root";
+	protected String PASS = "91512955";
 	protected Connection db;
 
 	public ClienteDAO() {
@@ -47,7 +53,7 @@ public class ClienteDAO {
 			st.setString(11, LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
 
 			int numRegistros = st.executeUpdate();
-			System.out.printf("%d record(s) registered", numRegistros);
+			System.out.printf("%d record(s) registered\n", numRegistros);
 
 			Main.frameCadastro.tfdLimparTodos();
 			return true;
@@ -68,7 +74,35 @@ public class ClienteDAO {
 		return true;
 	}
 
-	public boolean login(Cliente p) {
+	public boolean update(Cliente c) {
+		String query = "UPDATE Cliente SET nome = ?, sobrenome = ?, email = ?, senha = ?, sexo = ?, cpf = ?, telefone = ?, data_nascimento = ?, cep = ?, cidade = ?, dinheiro = ?, data_entrada = ? WHERE id_cliente = ?";
+
+		try {
+			PreparedStatement st = db.prepareStatement(query);
+			st.setString(1, c.getNome());
+			st.setString(2, c.getSobrenome());
+			st.setString(3, c.getEmail());
+			st.setString(4, c.getSenha());
+			st.setString(5, c.getSexo());
+			st.setString(6, c.getCpf());
+			st.setString(7, c.getTelefone());
+			st.setString(8, c.getNascimento());
+			st.setString(9, c.getCep());
+			st.setString(10, c.getCidade());
+			st.setInt(11, c.getDinheiro());
+			st.setString(12, c.getDataEntrada());
+			st.setInt(13, c.getId_pessoa());
+
+			int numRegistros = st.executeUpdate();
+			System.out.printf("%d record(s) registered\n", numRegistros);
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	public boolean canLogin(Cliente p) {
 		String query = "SELECT * FROM Cliente WHERE email = ? AND senha = ?";
 
 		try {
@@ -106,14 +140,14 @@ public class ClienteDAO {
 			return null;
 		}
 	}
-	
+
 	public Cliente getBySenha(String senha) {
 		String query = "SELECT * FROM Cliente WHERE senha = ?";
-		
+
 		try {
 			PreparedStatement st = db.prepareStatement(query);
 			st.setString(1, senha);
-			
+
 			ResultSet res = st.executeQuery();
 			return criarCliente(res);
 		} catch (SQLException e) {
@@ -121,7 +155,22 @@ public class ClienteDAO {
 			return null;
 		}
 	}
-	
+
+	public Cliente getByEmail(String email) {
+		String query = "SELECT * FROM Cliente WHERE email = ?";
+
+		try {
+			PreparedStatement st = db.prepareStatement(query);
+			st.setString(1, email);
+
+			ResultSet res = st.executeQuery();
+			return criarCliente(res);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
 	private Cliente criarCliente(ResultSet res) {
 		try {
 			if (res.next()) {
@@ -138,9 +187,10 @@ public class ClienteDAO {
 				String cidade = res.getString("cidade");
 				int dinheiro = res.getInt("dinheiro");
 				String dataEntrada = res.getString("data_entrada");
-				
-				Cliente c = new Cliente(id_pessoa, nome, data_nascimento, sobrenome, email, senha, sexo, cpf, telefone, cep, cidade, dinheiro, dataEntrada);
-				return c;
+
+				Cliente cliente = new Cliente(id_pessoa, nome, sobrenome, email, senha, sexo, cpf, telefone,
+						data_nascimento, cep, cidade, dinheiro, dataEntrada);
+				return cliente;
 			} else {
 				return null;
 			}
@@ -149,7 +199,27 @@ public class ClienteDAO {
 		}
 		return null;
 	}
-	
+
+	public Cliente criarCliente(ArrayList<String> credentials) {
+		int id_pessoa = Integer.parseInt(credentials.get(0));
+		String nome = credentials.get(1);
+		String sobrenome = credentials.get(2);
+		String email = credentials.get(3);
+		String senha = credentials.get(4);
+		String sexo = credentials.get(5);
+		String cpf = credentials.get(6);
+		String telefone = credentials.get(7);
+		String data_nascimento = credentials.get(8);
+		String cep = credentials.get(9);
+		String cidade = credentials.get(10);
+		int dinheiro = Integer.parseInt(credentials.get(11));
+		String dataEntrada = credentials.get(12);
+
+		Cliente cliente = new Cliente(id_pessoa, nome, sobrenome, email, senha, sexo, cpf, telefone, data_nascimento,
+				cep, cidade, dinheiro, dataEntrada);
+		return cliente;
+	}
+
 	private String nascimentoToMysql(String nascimento) {
 //		if (nascimento.contains("/")) {
 //			return String.format("%s-%s-%s", nascimento.split("/")[2], nascimento.split("/")[1], nascimento.split("/")[0]);			
@@ -160,13 +230,109 @@ public class ClienteDAO {
 		System.out.println(s);
 		return s;
 	}
-	
+
 	private String sexoToMysql(String sexo) {
 		if (sexo.equals("Masculino")) {
 			return "M";
 		} else if (sexo.equals("Feminino")) {
 			return "F";
 		} else {
+			return null;
+		}
+	}
+
+	// save credentials last client
+	public boolean storeCredentials(Cliente c, boolean rememberMe) {
+		try {
+			FileWriter writer = new FileWriter("src/resources/lastClient.txt");
+			writer.write("");
+			if (rememberMe) {
+				writer.append("1\n");
+			} else {
+				writer.append("0\n");
+			}
+			writer.append(String.valueOf(c.getId_pessoa()) + "\n"); // admin@gmail.com
+			writer.append(c.getNome() + "\n");
+			writer.append(c.getSobrenome() + "\n");
+			writer.append(c.getEmail() + "\n");
+			writer.append(c.getSenha() + "\n");
+			writer.append(c.getSexo() + "\n");
+			writer.append(c.getCpf() + "\n");
+			writer.append(c.getTelefone() + "\n");
+			writer.append(c.getNascimento() + "\n");
+			writer.append(c.getCep() + "\n");
+			writer.append(c.getCidade() + "\n");
+			writer.append(String.valueOf(c.getDinheiro()) + "\n");
+			writer.append(c.getDataEntrada() + "\n");
+			writer.close();
+			return true;
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return false;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	public boolean isRememberMeOn() {
+		boolean rememberMe;
+		try {
+			BufferedReader reader = new BufferedReader(new FileReader("src/resources/lastClient.txt"));
+
+			if (reader.readLine().equals("1")) {
+				rememberMe = true;
+			} else {
+				rememberMe = false;
+			}
+
+			// set mainClient
+			Main.setMainClient(Integer.parseInt(reader.readLine()), reader.readLine(), reader.readLine(),
+					reader.readLine(), reader.readLine(), reader.readLine(), reader.readLine(), reader.readLine(),
+					reader.readLine(), reader.readLine(), reader.readLine(), Integer.parseInt(reader.readLine()),
+					reader.readLine());
+
+			reader.close();
+			return rememberMe;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	public ArrayList<String> credentialsToArrayList() {
+		ArrayList<String> credentials = new ArrayList<String>();
+		try {
+			BufferedReader reader = new BufferedReader(new FileReader("src/resources/lastClient.txt"));
+			String line = reader.readLine(); // excluindo byte de verificação
+			line = reader.readLine(); // excluindo id
+			while ((line = reader.readLine()) != null) {
+				credentials.add(line);
+			}
+			reader.close();
+			return credentials;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	public Cliente getMainClient() {
+		try {
+			BufferedReader reader = new BufferedReader(new FileReader("src/resources/lastClient.txt"));
+			reader.readLine(); // excluindo byte de verificação
+
+			// set mainClient
+			Cliente c = new Cliente(Integer.parseInt(reader.readLine()), reader.readLine(), reader.readLine(),
+					reader.readLine(), reader.readLine(), reader.readLine(), reader.readLine(), reader.readLine(),
+					reader.readLine(), reader.readLine(), reader.readLine(), Integer.parseInt(reader.readLine()),
+					reader.readLine());
+
+			reader.close();
+			return c;
+		} catch (Exception e) {
+			e.printStackTrace();
 			return null;
 		}
 	}

@@ -58,8 +58,7 @@ public class ApresentacaoJFrame extends JFrame {
 
 		// lblBackground
 		lblBackground = new JLabel("");
-		lblBackground.setIcon(new ImageIcon(
-				"C:\\Users\\Gui\\Documents\\Guilherme\\GitHub\\projeto-integrador-java-sql\\img\\ART Music.png"));
+		lblBackground.setIcon(new ImageIcon(ApresentacaoJFrame.class.getResource("/img/ART Music.png")));
 		lblBackground.setBounds(0, 0, 484, 661);
 		contentPane.add(lblBackground);
 	}

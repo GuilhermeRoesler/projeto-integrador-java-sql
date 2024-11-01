@@ -16,8 +16,8 @@ public class Cliente extends Pessoa {
 	protected String dataEntrada;
 
 	// construtor mysql
-	public Cliente(int id_pessoa, String nome, String nascimento, String sobrenome, String email, String senha,
-			String sexo, String cpf, String telefone, String cep, String cidade, int dinheiro, String dataEntrada) {
+	public Cliente(int id_pessoa, String nome, String sobrenome, String email, String senha,
+			String sexo, String cpf, String telefone, String nascimento, String cep, String cidade, int dinheiro, String dataEntrada) {
 		super(id_pessoa, nome, nascimento);
 		this.sobrenome = sobrenome;
 		this.email = email;
@@ -32,8 +32,8 @@ public class Cliente extends Pessoa {
 	}
 
 	// construtor cadastro
-	public Cliente(String nome, String nascimento, String sobrenome, String email, String senha, String sexo,
-			String cpf, String telefone, String cep, String cidade) {
+	public Cliente(String nome, String sobrenome, String email, String senha, String sexo,
+			String cpf, String telefone, String nascimento, String cep, String cidade) {
 		super(nome, nascimento);
 		this.sobrenome = sobrenome;
 		this.email = email;
@@ -128,6 +128,14 @@ public class Cliente extends Pessoa {
 		this.dinheiro = dinheiro;
 	}
 	
+	public String getDataEntrada() {
+		return dataEntrada;
+	}
+
+	public void setDataEntrada(String dataEntrada) {
+		this.dataEntrada = dataEntrada;
+	}
+
 	public int getIdade() {
 		LocalDate dataNascimento = LocalDate.parse(nascimento, java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 		LocalDate dataAtual = LocalDate.now();
