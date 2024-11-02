@@ -40,9 +40,11 @@ public class LoginJFrame extends JFrame {
 
 	// images
 	private Font defaulFont = new Font("Open Sans", Font.BOLD, 20);
-	private ImageIcon openEye = new ImageIcon("src/img/password_see1.png");
-	private ImageIcon closedEye = new ImageIcon("src/img/password_not_see1.png");
-	private ImageIcon background = new ImageIcon("src/img/tela login.png");
+	private ImageIcon imgOpenEye = new ImageIcon("src/img/password_see1.png");
+	private ImageIcon imgClosedEye = new ImageIcon("src/img/password_not_see1.png");
+	private ImageIcon imgBackground = new ImageIcon("src/img/tela login.png");
+	private ImageIcon imgForgotPassword = new ImageIcon("src/img/recuperar senha.png");
+	private ImageIcon imgBack = new ImageIcon("src/img/back1.png");
 	
 	// listeners
 	private ActionListener loginActionListener, recuperarSenhaActionListener;
@@ -51,6 +53,7 @@ public class LoginJFrame extends JFrame {
 	private ClienteDAO conn;
 	public Cliente mainClient;
 
+	// constructor
 	public LoginJFrame(ClienteDAO conn) {
 		setTitle("Login");
 		setResizable(false);
@@ -125,7 +128,7 @@ public class LoginJFrame extends JFrame {
 		btnVerSenha = new JButton("");
 		btnVerSenha.setBounds(300, 13, 30, 30);
 		panel12.add(btnVerSenha);
-		btnVerSenha.setIcon(openEye);
+		btnVerSenha.setIcon(imgOpenEye);
 		btnVerSenha.setContentAreaFilled(false);
 		btnVerSenha.setBorderPainted(false);
 		btnVerSenha.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -166,7 +169,7 @@ public class LoginJFrame extends JFrame {
 
 		// btnBack
 		btnBack = new JButton();
-		btnBack.setIcon(new ImageIcon("src/img/back1.png"));
+		btnBack.setIcon(imgBack);
 		btnBack.setBounds(10, 11, 30, 30);
 		btnBack.setContentAreaFilled(false);
 		btnBack.setBorderPainted(false);
@@ -177,7 +180,7 @@ public class LoginJFrame extends JFrame {
 		lblBackground = new JLabel("");
 		lblBackground.setBounds(0, 0, 584, 611);
 		contentPane.add(lblBackground);
-		lblBackground.setIcon(background);
+		lblBackground.setIcon(imgBackground);
 	}
 
 	// initListeners
@@ -252,11 +255,11 @@ public class LoginJFrame extends JFrame {
 		// btnVerSenha listener
 		btnVerSenha.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (btnVerSenha.getIcon().equals(openEye)) {
-					btnVerSenha.setIcon(closedEye);
+				if (btnVerSenha.getIcon().equals(imgOpenEye)) {
+					btnVerSenha.setIcon(imgClosedEye);
 					tfdSenha.setEchoChar((char) 0);
-				} else if (btnVerSenha.getIcon().equals(closedEye)) {
-					btnVerSenha.setIcon(openEye);
+				} else if (btnVerSenha.getIcon().equals(imgClosedEye)) {
+					btnVerSenha.setIcon(imgOpenEye);
 					tfdSenha.setEchoChar('•');
 				}
 			}
@@ -322,8 +325,7 @@ public class LoginJFrame extends JFrame {
 					dispose();
 					Main.frameApresentacao.setVisible(true);
 				} else {
-					lblBackground.setIcon(new ImageIcon(
-							"C:\\Users\\Gui\\Documents\\Guilherme\\GitHub\\projeto-integrador-java-sql\\img\\tela login.png"));
+					lblBackground.setIcon(imgBackground);
 					panel12.setVisible(true);
 					tfdEmail.setLocation(133, 268);
 					tfdEmail.setText("Email");
@@ -348,8 +350,7 @@ public class LoginJFrame extends JFrame {
 
 	// recuperarSenha
 	private void recuperarSenha() {
-		lblBackground.setIcon(new ImageIcon(
-				"C:\\Users\\Gui\\Documents\\Guilherme\\GitHub\\projeto-integrador-java-sql\\img\\recuperar senha.png"));
+		lblBackground.setIcon(imgForgotPassword);
 		panel12.setVisible(false);
 		tfdEmail.setLocation(133, 327);
 		tfdEmail.setText(null);
