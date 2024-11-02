@@ -42,6 +42,10 @@ public class ArtistaDAO {
 		try {
 			PreparedStatement st = db.prepareStatement(query);
 			ResultSet res = st.executeQuery();
+			
+			while (res.next()) {
+				System.out.println(res);
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
