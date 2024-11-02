@@ -33,7 +33,7 @@ public class UsuarioJFrame extends JFrame {
 	private JScrollPane pnlDadosPessoais;
 	private JLabel lblImagemPerfil, lblNome, lblDinheiro, lblBackground;
 	private JButton[] btnsConfig;
-	public JComponent[] panels = {pnlHome, pnlDadosPessoais, null, null, null, null, null, null};
+	public JComponent[] panels = { pnlHome, pnlDadosPessoais, null, null, null, null, null, null };
 
 	public static final IngressoComprarJFrame frameIngresso = new IngressoComprarJFrame();
 
@@ -42,7 +42,7 @@ public class UsuarioJFrame extends JFrame {
 //	private int opcoesSeparadorY = 70;
 //	private int opcoesWidth = 150;
 //	private int opcoesHeigth = 50;
-	
+
 	// images
 	private Font font1 = new Font("Open Sans", Font.BOLD, 20);
 	private ImageIcon imgProfilePic = new ImageIcon("src/img/default_profile_pic1.png");
@@ -116,8 +116,7 @@ public class UsuarioJFrame extends JFrame {
 
 		// lblImagemPerfil
 		lblImagemPerfil = new JLabel("");
-		lblImagemPerfil.setIcon(new ImageIcon(
-				"C:\\Users\\Gui\\Documents\\Guilherme\\GitHub\\projeto-integrador-java-sql\\img\\default_profile_pic1.png"));
+		lblImagemPerfil.setIcon(imgProfilePic);
 		lblImagemPerfil.setPreferredSize(new Dimension(50, 50));
 		lblImagemPerfil.setBackground(Color.blue);
 
@@ -142,17 +141,17 @@ public class UsuarioJFrame extends JFrame {
 		contentPane.add(pnlHome);
 		pnlHome.setLayout(new BoxLayout(pnlHome, BoxLayout.Y_AXIS));
 //		pnlHome.setVisible(false);
-		
+
 		// pnlDadosPessoais
 		pnlDadosPessoais = new JScrollPane(new dadosPessoaisJPanel());
 		pnlDadosPessoais.setBounds(300, 100, 1320, 950);
 		dadosPessoaisJPanel.configScrollPane(pnlDadosPessoais);
 		contentPane.add(pnlDadosPessoais);
 		pnlDadosPessoais.setVisible(false);
-		
-		JComponent[] panels2 = {pnlHome, pnlDadosPessoais};
+
+		JComponent[] panels2 = { pnlHome, pnlDadosPessoais };
 		panels = panels2;
-		
+
 		btnsConfig = ((configJPanel) pnlConfig).getButtons();
 		int i = 0;
 		for (JButton jButton : btnsConfig) {
