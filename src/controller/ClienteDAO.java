@@ -287,14 +287,14 @@ public class ClienteDAO {
 			}
 
 			// set mainClient
-			Main.setMainClient(Integer.parseInt(reader.readLine()), reader.readLine(), reader.readLine(),
+			Cliente mainClient = new Cliente(Integer.parseInt(reader.readLine()), reader.readLine(), reader.readLine(),
 					reader.readLine(), reader.readLine(), reader.readLine(), reader.readLine(), reader.readLine(),
 					reader.readLine(), reader.readLine(), reader.readLine(), Integer.parseInt(reader.readLine()),
 					reader.readLine());
+			Main.setMainClient(mainClient);
 
 			reader.close();
 			return rememberMe;
-
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
