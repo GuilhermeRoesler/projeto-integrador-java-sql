@@ -1,7 +1,6 @@
 package view;
 
 import java.awt.Cursor;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -15,15 +14,17 @@ import javax.swing.border.EmptyBorder;
 public class ApresentacaoJFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
+
+	// JComponents
 	private JPanel contentPane;
 	private JLabel lblBackground;
 	private JButton btnVerShows;
 
+	// constructor
 	public ApresentacaoJFrame() {
 		setTitle("Art Music");
 		setResizable(false);
-		setIconImage(Toolkit.getDefaultToolkit().getImage(
-				"C:\\Users\\Gui\\Documents\\Guilherme\\GitHub\\projeto-integrador-java-sql\\img\\ART Music logo.png"));
+		setIconImage(Main.logo);
 		initComponents();
 	}
 

@@ -38,6 +38,8 @@ import utils.MaskUtil;
 public class IngressoComprarJFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
+
+	// JComponents
 	private JPanel contentPane, pnlHeader;
 	private JLabel lblIngressos, lblPreco, lblShowsProximos, lblDinheiro;
 	private JButton btnSair, btnComprar;
@@ -45,6 +47,7 @@ public class IngressoComprarJFrame extends JFrame {
 	private JScrollPane scrollPane;
 	private JTable table;
 
+	// fonts
 	private Font font1 = new Font("Nimbus Sans", Font.BOLD, 30);
 	private Font font2 = new Font("Open Sans", Font.BOLD, 14);
 	private JFormattedTextField tfdCpf;
@@ -71,6 +74,7 @@ public class IngressoComprarJFrame extends JFrame {
 		eventos = eventoDAO.read();
 		setResizable(false);
 		setTitle("Ingressos");
+		setIconImage(Main.logo);
 
 		initComponents();
 		initListeners();

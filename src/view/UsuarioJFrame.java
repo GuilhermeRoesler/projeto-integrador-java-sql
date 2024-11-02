@@ -65,6 +65,7 @@ public class UsuarioJFrame extends JFrame {
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setTitle("Art Music");
 		setResizable(false);
+		setIconImage(Main.logo);
 
 		this.conn = conn;
 		this.mainClient = mainClient;

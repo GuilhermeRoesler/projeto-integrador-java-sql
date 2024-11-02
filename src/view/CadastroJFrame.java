@@ -30,7 +30,6 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
-import javax.swing.text.MaskFormatter;
 
 import controller.ClienteDAO;
 import model.Cliente;
@@ -59,12 +58,17 @@ public class CadastroJFrame extends JFrame {
 	protected JCheckBox chboxSenha, chboxOfertas, chboxNumero;
 	protected JButton btnCadastrar, btnRandom, btnBack;
 	protected JComboBox<String> cmbboxSexo;
+	
+	// images
+	private ImageIcon imgBack = new ImageIcon("src/img/back1.png");
+	private ImageIcon imgBackground = new ImageIcon("src/img/tela cadastro.png");
 
 	private ClienteDAO conn;
 
 	public CadastroJFrame(ClienteDAO conn) {
 		setTitle("Cadastro");
 		setResizable(false);
+		setIconImage(Main.logo);
 
 		this.conn = conn;
 		initComponents();
@@ -84,8 +88,7 @@ public class CadastroJFrame extends JFrame {
 
 		// btnBack
 		btnBack = new JButton();
-		btnBack.setIcon(new ImageIcon(
-				"C:\\Users\\Gui\\Documents\\Guilherme\\GitHub\\projeto-integrador-java-sql\\img\\back1.png"));
+		btnBack.setIcon(imgBack);
 		btnBack.setBounds(10, 11, 30, 30);
 		btnBack.setContentAreaFilled(false);
 		btnBack.setBorderPainted(false);
@@ -289,8 +292,7 @@ public class CadastroJFrame extends JFrame {
 		contentPane.add(btnRandom);
 
 		lblBackground = new JLabel("");
-		lblBackground.setIcon(new ImageIcon(
-				"C:\\Users\\Gui\\Documents\\Guilherme\\GitHub\\projeto-integrador-java-sql\\img\\tela cadastro.png"));
+		lblBackground.setIcon(imgBackground);
 		lblBackground.setBounds(0, 0, 834, 611);
 		contentPane.add(lblBackground);
 

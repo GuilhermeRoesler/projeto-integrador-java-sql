@@ -3,7 +3,6 @@ package view;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
@@ -30,6 +29,8 @@ import model.Cliente;
 public class LoginJFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
+	
+	// JComponents
 	private JPanel contentPane, panel1, panel12;
 	private JLabel lblCadastrar, lblBackground;
 	private JTextField tfdEmail;
@@ -37,7 +38,13 @@ public class LoginJFrame extends JFrame {
 	private JButton btnLogin, btnVerSenha, btnEsqueciSenha, btnCadastrar, btnBack;
 	private JCheckBox chckbxLembrarDeMim;
 
+	// images
 	private Font defaulFont = new Font("Open Sans", Font.BOLD, 20);
+	private ImageIcon openEye = new ImageIcon("src/img/password_see1.png");
+	private ImageIcon closedEye = new ImageIcon("src/img/password_not_see1.png");
+	private ImageIcon background = new ImageIcon("src/img/tela login.png");
+	
+	// listeners
 	private ActionListener loginActionListener, recuperarSenhaActionListener;
 	private KeyAdapter enterKeyAdapter;
 
@@ -55,8 +62,7 @@ public class LoginJFrame extends JFrame {
 	}
 
 	private void initComponents() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(
-				"C:\\Users\\Gui\\Documents\\Guilherme\\GitHub\\projeto-integrador-java-sql\\img\\ART Music logo.png"));
+		setIconImage(Main.logo);
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 600, 650);
 		contentPane = new JPanel();
@@ -119,8 +125,7 @@ public class LoginJFrame extends JFrame {
 		btnVerSenha = new JButton("");
 		btnVerSenha.setBounds(300, 13, 30, 30);
 		panel12.add(btnVerSenha);
-		btnVerSenha.setIcon(new ImageIcon(
-				"C:\\Users\\Gui\\Documents\\Guilherme\\GitHub\\projeto-integrador-java-sql\\img\\password_see1.png"));
+		btnVerSenha.setIcon(openEye);
 		btnVerSenha.setContentAreaFilled(false);
 		btnVerSenha.setBorderPainted(false);
 		btnVerSenha.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -161,8 +166,7 @@ public class LoginJFrame extends JFrame {
 
 		// btnBack
 		btnBack = new JButton();
-		btnBack.setIcon(new ImageIcon(
-				"C:\\Users\\Gui\\Documents\\Guilherme\\GitHub\\projeto-integrador-java-sql\\img\\back1.png"));
+		btnBack.setIcon(new ImageIcon("src/img/back1.png"));
 		btnBack.setBounds(10, 11, 30, 30);
 		btnBack.setContentAreaFilled(false);
 		btnBack.setBorderPainted(false);
@@ -173,8 +177,7 @@ public class LoginJFrame extends JFrame {
 		lblBackground = new JLabel("");
 		lblBackground.setBounds(0, 0, 584, 611);
 		contentPane.add(lblBackground);
-		lblBackground.setIcon(new ImageIcon(
-				"C:\\Users\\Gui\\Documents\\Guilherme\\GitHub\\projeto-integrador-java-sql\\img\\tela login.png"));
+		lblBackground.setIcon(background);
 	}
 
 	// initListeners
@@ -249,15 +252,11 @@ public class LoginJFrame extends JFrame {
 		// btnVerSenha listener
 		btnVerSenha.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (btnVerSenha.getIcon()
-						.toString() == "C:\\Users\\Gui\\Documents\\Guilherme\\GitHub\\projeto-integrador-java-sql\\img\\password_see1.png") {
-					btnVerSenha.setIcon(new ImageIcon(
-							"C:\\Users\\Gui\\Documents\\Guilherme\\GitHub\\projeto-integrador-java-sql\\img\\password_not_see1.png"));
+				if (btnVerSenha.getIcon().equals(openEye)) {
+					btnVerSenha.setIcon(closedEye);
 					tfdSenha.setEchoChar((char) 0);
-				} else if (btnVerSenha.getIcon()
-						.toString() == "C:\\Users\\Gui\\Documents\\Guilherme\\GitHub\\projeto-integrador-java-sql\\img\\password_not_see1.png") {
-					btnVerSenha.setIcon(new ImageIcon(
-							"C:\\Users\\Gui\\Documents\\Guilherme\\GitHub\\projeto-integrador-java-sql\\img\\password_see1.png"));
+				} else if (btnVerSenha.getIcon().equals(closedEye)) {
+					btnVerSenha.setIcon(openEye);
 					tfdSenha.setEchoChar('•');
 				}
 			}
@@ -275,7 +274,7 @@ public class LoginJFrame extends JFrame {
 				if (conn.canLogin(clienteVerificacao)) {
 					// set mainClient
 					mainClient = conn.getByEmail(email);
-					
+
 					// store mainClient
 					if (chckbxLembrarDeMim.isSelected()) {
 						conn.storeCredentials(mainClient, true);
