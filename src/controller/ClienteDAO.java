@@ -101,6 +101,22 @@ public class ClienteDAO {
 			return false;
 		}
 	}
+	
+	public boolean delete(Cliente c) {
+		String query = "DELETE FROM Cliente WHERE id_cliente = ?";
+		
+		try {
+			PreparedStatement st = db.prepareStatement(query);
+			st.setInt(1, c.getId_pessoa());
+			
+			int numRegistros = st.executeUpdate();
+			System.out.printf("%d record(s) registered\n", numRegistros);
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
 
 	public boolean canLogin(Cliente p) {
 		String query = "SELECT * FROM Cliente WHERE email = ? AND senha = ?";
