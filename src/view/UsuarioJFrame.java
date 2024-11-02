@@ -42,7 +42,10 @@ public class UsuarioJFrame extends JFrame {
 //	private int opcoesSeparadorY = 70;
 //	private int opcoesWidth = 150;
 //	private int opcoesHeigth = 50;
+	
+	// images
 	private Font font1 = new Font("Open Sans", Font.BOLD, 20);
+	private ImageIcon imgProfilePic = new ImageIcon("src/img/default_profile_pic1.png");
 
 	private ClienteDAO conn;
 	public Cliente mainClient;
