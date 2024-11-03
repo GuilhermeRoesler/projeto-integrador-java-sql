@@ -19,7 +19,7 @@ public class Main {
 	public static UsuarioJFrame frameUsuario;
 
 	public static void main(String[] args) {
-		// initialize Apresentação
+		// initialize frameApresentacao
 		try {
 			frameApresentacao.setLocationRelativeTo(null);
 			frameApresentacao.setVisible(true);

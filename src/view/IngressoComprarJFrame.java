@@ -70,6 +70,7 @@ public class IngressoComprarJFrame extends JFrame {
 		});
 	}
 
+	// constructor
 	public IngressoComprarJFrame() {
 		eventos = eventoDAO.read();
 		setResizable(false);
