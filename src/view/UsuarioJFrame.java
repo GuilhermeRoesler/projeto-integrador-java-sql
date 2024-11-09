@@ -1,90 +1,70 @@
 package view;
 
-import java.awt.Color;
+import java.awt.Component;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import controller.ClienteDAO;
 import model.Cliente;
-import view.JPanels.configJPanel;
-import view.JPanels.dadosPessoaisJPanel;
-import view.JPanels.homeJPanel;
 
 public class UsuarioJFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	private JPanel contentPane, pnlConfig, pnlHeader, pnlHome;
-	private JScrollPane pnlDadosPessoais;
-	private JLabel lblImagemPerfil, lblNome, lblDinheiro, lblBackground;
-	private JButton[] btnsConfig;
-	public JComponent[] panels = { pnlHome, pnlDadosPessoais, null, null, null, null, null, null };
-
-	public static final IngressoComprarJFrame frameIngresso = new IngressoComprarJFrame();
-
-//	private int opcoesX = 1740;
-//	private int opcoesY = 130;
-//	private int opcoesSeparadorY = 70;
-//	private int opcoesWidth = 150;
-//	private int opcoesHeigth = 50;
-
-	// images
-	private Font font1 = new Font("Open Sans", Font.BOLD, 20);
-	private ImageIcon imgProfilePic = new ImageIcon("src/img/default_profile_pic1.png");
-
+	private JPanel contentPane, panelConfig, pnlHeader, pnlBody;
+	private JButton btnOpcoes, btnConfig, btnDadosPessoais, btnAtividade, btnNotificacoes, btnAjuda, btnDinheiro, btnSair, btnComprarIngresso;
+	private JLabel lblSeusShows, lblSeusShows2, lblDinheiro, lblBackground;
+	
+	protected static final IngressoComprarJFrame frameIngresso = new IngressoComprarJFrame();
+	
+	private int opcoesX = 1740;
+	private int opcoesY = 130;
+	private int opcoesSeparadorY = 70;
+	private int opcoesWidth = 150;
+	private int opcoesHeigth = 50;
+	
+	private Font font1 = new Font("Nimbus Sans", Font.BOLD, 30);
 	private ClienteDAO conn;
-	public Cliente mainClient;
 
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					UsuarioJFrame frame = new UsuarioJFrame();
-					frame.setLocationRelativeTo(null);
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
+		public static void main(String[] args) {
+			EventQueue.invokeLater(new Runnable() {
+				public void run() {
+					try {
+						UsuarioJFrame frame = new UsuarioJFrame();
+						frame.setVisible(true);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
 				}
-			}
-		});
-	}
+			});
+		}
 
-	public UsuarioJFrame(ClienteDAO conn, Cliente mainClient) {
+	public UsuarioJFrame(ClienteDAO conn) {
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setTitle("Art Music");
 		setResizable(false);
-		setIconImage(Main.logo);
 
 		this.conn = conn;
-		this.mainClient = mainClient;
 		initComponents();
-		addingActionListeners();
-		addingBackground();
 	}
-
+	
 	public UsuarioJFrame() {
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setTitle("Art Music");
 		setResizable(false);
-
-		this.conn = Main.conn;
-		mainClient = conn.getMainClient();
-		Main.frameUsuario = this;
 		initComponents();
 		addingActionListeners();
 		addingBackground();
@@ -98,81 +78,136 @@ public class UsuarioJFrame extends JFrame {
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		
+		// panelConfig
+		panelConfig = new JPanel();
+		panelConfig.setBounds(1650, 100, 270, 1080);
+		panelConfig.setOpaque(false);
+		contentPane.add(panelConfig);
+		
+		// btnOpcoes
+		btnOpcoes = new JButton();
+		btnOpcoes.setText("Opções");
+		btnOpcoes.setBounds(opcoesX, opcoesY + opcoesSeparadorY * 0, opcoesWidth, opcoesHeigth);
+		btnOpcoes.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		contentPane.add(btnOpcoes);
+		
+		// btnConfig
+		btnConfig = new JButton();
+		btnConfig.setText("Configurações");
+		btnConfig.setBounds(opcoesX, opcoesY + opcoesSeparadorY * 1, opcoesWidth, opcoesHeigth);
+		contentPane.add(btnConfig);
+		btnConfig.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		
+		// btnDadosPessoais
+		btnDadosPessoais = new JButton();
+		btnDadosPessoais.setText("Dados Pessoais");
+		btnDadosPessoais.setBounds(opcoesX, opcoesY + opcoesSeparadorY * 2, opcoesWidth, opcoesHeigth);
+		contentPane.add(btnDadosPessoais);
+		btnDadosPessoais.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		
+		// btnAtividade
+		btnAtividade = new JButton();
+		btnAtividade.setText("Atividade");
+		btnAtividade.setBounds(opcoesX, opcoesY + opcoesSeparadorY * 3, opcoesWidth, opcoesHeigth);
+		contentPane.add(btnAtividade);
+		btnAtividade.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		
+		// btnNotificacoes
+		btnNotificacoes = new JButton();
+		btnNotificacoes.setText("Notificações");
+		btnNotificacoes.setBounds(opcoesX, opcoesY + opcoesSeparadorY * 4, opcoesWidth, opcoesHeigth);
+		contentPane.add(btnNotificacoes);
+		btnNotificacoes.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		
+		// btnAjuda
+		btnAjuda = new JButton();
+		btnAjuda.setText("Ajuda");
+		btnAjuda.setBounds(opcoesX, opcoesY + opcoesSeparadorY * 5, opcoesWidth, opcoesHeigth);
+		contentPane.add(btnAjuda);
+		btnAjuda.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		
+		// btnDinheiro
+		btnDinheiro = new JButton();
+		btnDinheiro.setText("Dinheiro");
+		btnDinheiro.setBounds(opcoesX, opcoesY + opcoesSeparadorY * 6, opcoesWidth, opcoesHeigth);
+		contentPane.add(btnDinheiro);
+		btnDinheiro.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		
+		// btnSair
+		btnSair = new JButton();
+		btnSair.setText("Sair");
+		btnSair.setBounds(opcoesX, opcoesY + opcoesSeparadorY * 7, opcoesWidth, opcoesHeigth);
+		contentPane.add(btnSair);
+		btnSair.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		
+		//panel2
+		pnlBody = new JPanel();
+		pnlBody.setBounds(0, 100, 1920, 200);
+		contentPane.add(pnlBody);
+		pnlBody.setLayout(new BoxLayout(pnlBody, BoxLayout.Y_AXIS));
 
-		// lblDinheiro
-		lblDinheiro = new JLabel();
-		lblDinheiro.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblDinheiro.setBounds(1688, 20, 182, 31);
-		lblDinheiro.setText("R$" + mainClient.getDinheiro() + ",00");
-		lblDinheiro.setFont(font1);
-		contentPane.add(lblDinheiro);
-
+		// lblSeusShows
+		lblSeusShows = new JLabel("Seus Shows");
+		lblSeusShows.setAlignmentX(Component.CENTER_ALIGNMENT);
+		lblSeusShows.setHorizontalAlignment(SwingConstants.CENTER);
+		lblSeusShows.setPreferredSize(new Dimension(100, 50));
+		lblSeusShows.setFont(font1);
+		
+		// lblSeusShows2
+		lblSeusShows2 = new JLabel("Sua agenda está vazia...");
+		lblSeusShows2.setAlignmentX(Component.CENTER_ALIGNMENT);
+		lblSeusShows2.setHorizontalAlignment(SwingConstants.CENTER);
+		lblSeusShows2.setPreferredSize(new Dimension(100, 50));
+		lblSeusShows2.setFont(font1);
+		
+		// btnComprarIngresso
+		btnComprarIngresso = new JButton("Comprar ingresso");
+		btnComprarIngresso.setAlignmentX(Component.CENTER_ALIGNMENT);
+		btnComprarIngresso.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		
+		// boxLayout organization
+		pnlBody.add(Box.createGlue());
+		pnlBody.add(lblSeusShows);
+		pnlBody.add(Box.createGlue());
+		pnlBody.add(lblSeusShows2);
+		pnlBody.add(Box.createGlue());
+		pnlBody.add(btnComprarIngresso);
+		pnlBody.add(Box.createGlue());
+		
 		// pnlHeader
 		pnlHeader = new JPanel();
-		pnlHeader.setLayout(new BoxLayout(pnlHeader, BoxLayout.X_AXIS));
-		pnlHeader.setBounds(0, 0, 1920, 80);
-		pnlHeader.setBorder(BorderFactory.createMatteBorder(0, 0, 3, 0, Color.BLACK));
+		pnlHeader.setBounds(0, 0, 1920, 100);
 		contentPane.add(pnlHeader);
-
-		// lblImagemPerfil
-		lblImagemPerfil = new JLabel("");
-		lblImagemPerfil.setIcon(imgProfilePic);
-		lblImagemPerfil.setPreferredSize(new Dimension(50, 50));
-		lblImagemPerfil.setBackground(Color.blue);
-
-		// lblNome
-		lblNome = new JLabel(mainClient.getNome() + " " + mainClient.getSobrenome());
-		lblNome.setFont(font1);
-
-		// pnlHeader boxLayout
-		pnlHeader.add(Box.createRigidArea(new Dimension(20, 0)));
-		pnlHeader.add(lblImagemPerfil);
-		pnlHeader.add(Box.createRigidArea(new Dimension(10, 0)));
-		pnlHeader.add(lblNome);
-
-		// panelConfig
-		pnlConfig = new configJPanel();
-		pnlConfig.setBounds(1620, 80, 300, 1000);
-		contentPane.add(pnlConfig);
-
-		// pnlHome
-		pnlHome = new homeJPanel();
-		pnlHome.setBounds(0, 100, 1920, 200);
-		contentPane.add(pnlHome);
-		pnlHome.setLayout(new BoxLayout(pnlHome, BoxLayout.Y_AXIS));
-//		pnlHome.setVisible(false);
-
-		// pnlDadosPessoais
-		pnlDadosPessoais = new JScrollPane(new dadosPessoaisJPanel());
-		pnlDadosPessoais.setBounds(300, 100, 1320, 950);
-		dadosPessoaisJPanel.configScrollPane(pnlDadosPessoais);
-		contentPane.add(pnlDadosPessoais);
-		pnlDadosPessoais.setVisible(false);
-
-		JComponent[] panels2 = { pnlHome, pnlDadosPessoais };
-		panels = panels2;
-
-		btnsConfig = ((configJPanel) pnlConfig).getButtons();
-		int i = 0;
-		for (JButton jButton : btnsConfig) {
-
-			final int index = i;
-			jButton.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					for (JComponent jComponent : panels) {
-						jComponent.setVisible(false);
-					}
-					panels[index].setVisible(true);
-				}
-			});
-			i++;
-		}
+		
+		// lblDinheiro
+		lblDinheiro = new JLabel();
+		lblDinheiro.setText("R$0,00");
+		pnlHeader.add(lblDinheiro);
 	}
-
+	
 	private void addingActionListeners() {
-	}
+		// btnOpcoes
+		btnOpcoes.addActionListener(new ActionListener() {
+			@SuppressWarnings("unused")
+			public void actionPerformed(ActionEvent e) {
+				if (false) conn.create(new Cliente());
+			}
+		});
 
+		// btnComprarIngresso
+		btnComprarIngresso.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					frameIngresso.setVisible(true);
+					frameIngresso.setLocationRelativeTo(null);					
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+	}
+	
 	private void addingBackground() {
 		lblBackground = new JLabel();
 		lblBackground.setBounds(0, 0, 1920, 1080);

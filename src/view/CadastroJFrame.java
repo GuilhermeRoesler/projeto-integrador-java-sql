@@ -30,10 +30,10 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.MaskFormatter;
 
 import controller.ClienteDAO;
 import model.Cliente;
-import utils.MaskUtil;
 
 public class CadastroJFrame extends JFrame {
 
@@ -58,17 +58,12 @@ public class CadastroJFrame extends JFrame {
 	protected JCheckBox chboxSenha, chboxOfertas, chboxNumero;
 	protected JButton btnCadastrar, btnRandom, btnBack;
 	protected JComboBox<String> cmbboxSexo;
-	
-	// images
-	private ImageIcon imgBack = new ImageIcon("src/img/back1.png");
-	private ImageIcon imgBackground = new ImageIcon("src/img/tela cadastro.png");
 
 	private ClienteDAO conn;
 
 	public CadastroJFrame(ClienteDAO conn) {
 		setTitle("Cadastro");
 		setResizable(false);
-		setIconImage(Main.logo);
 
 		this.conn = conn;
 		initComponents();
@@ -88,7 +83,8 @@ public class CadastroJFrame extends JFrame {
 
 		// btnBack
 		btnBack = new JButton();
-		btnBack.setIcon(imgBack);
+		btnBack.setIcon(new ImageIcon(
+				"C:\\Users\\Gui\\Documents\\Guilherme\\GitHub\\projeto-integrador-java-sql\\img\\back1.png"));
 		btnBack.setBounds(10, 11, 30, 30);
 		btnBack.setContentAreaFilled(false);
 		btnBack.setBorderPainted(false);
@@ -218,25 +214,25 @@ public class CadastroJFrame extends JFrame {
 		});
 
 		// txtCPF
-		txtCPF = new JFormattedTextField(MaskUtil.createMaskFormatter("###.###.###-##"));
+		txtCPF = new JFormattedTextField(createMaskFormatter("###.###.###-##"));
 		txtCPF.setBounds(txtX1, Y2 + 3 * separadorY, txtWidth, txtHeight);
 		contentPane.add(txtCPF);
 		txtCPF.setColumns(10);
 
 		// txtTelefone
-		txtTelefone = new JFormattedTextField(MaskUtil.createMaskFormatter("(##) #####-####"));
+		txtTelefone = new JFormattedTextField(createMaskFormatter("(##) #####-####"));
 		txtTelefone.setBounds(txtX1, Y2 + 4 * separadorY, txtWidth, txtHeight);
 		contentPane.add(txtTelefone);
 		txtTelefone.setColumns(10);
 
 		// txtNascimento
-		txtNascimento = new JFormattedTextField(MaskUtil.createMaskFormatter("##/##/####"));
+		txtNascimento = new JFormattedTextField(createMaskFormatter("##/##/####"));
 		txtNascimento.setBounds(txtX1, Y2 + 5 * separadorY + 1, txtWidth, txtHeight);
 		contentPane.add(txtNascimento);
 		txtNascimento.setColumns(10);
 
 		// txtCEP
-		txtCEP = new JFormattedTextField(MaskUtil.createMaskFormatter("#####-###"));
+		txtCEP = new JFormattedTextField(createMaskFormatter("#####-###"));
 		txtCEP.setBounds(txtX2, Y3 + separadorY * 0, txtWidth2, txtHeight);
 		contentPane.add(txtCEP);
 		txtCEP.setColumns(10);
@@ -259,9 +255,9 @@ public class CadastroJFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if (verificarTfds()) {
 					@SuppressWarnings("deprecation")
-					Cliente cliente = new Cliente(txtNome.getText(), txtSobrenome.getText(), txtEmail.getText(),
-							txtSenha.getText(), cmbboxSexo.getSelectedItem().toString(), txtCPF.toString(),
-							txtTelefone.getText(), txtNascimento.getText(), txtCEP.getText(), txtCidade.getText());
+					Cliente cliente = new Cliente(txtNome.getText(), txtNascimento.getText(), txtSobrenome.getText(),
+							txtEmail.getText(), txtSenha.getText().toString(), cmbboxSexo.getSelectedItem().toString(),
+							txtCPF.getText(), txtTelefone.getText(), txtCEP.getText(), txtCidade.getText());
 					if (conn.create(cliente)) {
 						JOptionPane.showMessageDialog(null, "Usuário cadastrado com sucesso!");
 						dispose();
@@ -292,7 +288,8 @@ public class CadastroJFrame extends JFrame {
 		contentPane.add(btnRandom);
 
 		lblBackground = new JLabel("");
-		lblBackground.setIcon(imgBackground);
+		lblBackground.setIcon(new ImageIcon(
+				"C:\\Users\\Gui\\Documents\\Guilherme\\GitHub\\projeto-integrador-java-sql\\img\\tela cadastro.png"));
 		lblBackground.setBounds(0, 0, 834, 611);
 		contentPane.add(lblBackground);
 
@@ -506,6 +503,14 @@ public class CadastroJFrame extends JFrame {
 		}
 	}
 
+	private static MaskFormatter createMaskFormatter(String mask) {
+		try {
+			return new MaskFormatter(mask);
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
 	private boolean verificarTfds() {
 		JTextField[] allTextFields = { txtEmail, txtRepetirEmail, txtNome, txtSobrenome, txtCidade, txtNumero, txtCPF,
 				txtTelefone, txtNascimento, txtCEP, txtSenha, txtRepetirSenha };
@@ -527,7 +532,7 @@ public class CadastroJFrame extends JFrame {
 			if (Integer.parseInt(nascimento.substring(0, 2)) > 30 || Integer.parseInt(nascimento.substring(2, 4)) > 12
 					|| Integer.parseInt(nascimento.substring(4, 8)) < 1000
 					|| Integer.parseInt(nascimento.substring(4, 8)) > 2050)
-				isAllFilled = false;
+				isAllFilled = false;			
 		}
 
 		return isAllFilled;

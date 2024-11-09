@@ -3,6 +3,7 @@ package view;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
@@ -29,8 +30,6 @@ import model.Cliente;
 public class LoginJFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	
-	// JComponents
 	private JPanel contentPane, panel1, panel12;
 	private JLabel lblCadastrar, lblBackground;
 	private JTextField tfdEmail;
@@ -38,34 +37,24 @@ public class LoginJFrame extends JFrame {
 	private JButton btnLogin, btnVerSenha, btnEsqueciSenha, btnCadastrar, btnBack;
 	private JCheckBox chckbxLembrarDeMim;
 
-	// images
 	private Font defaulFont = new Font("Open Sans", Font.BOLD, 20);
-	private ImageIcon imgOpenEye = new ImageIcon("src/img/password_see1.png");
-	private ImageIcon imgClosedEye = new ImageIcon("src/img/password_not_see1.png");
-	private ImageIcon imgBackground = new ImageIcon("src/img/tela login.png");
-	private ImageIcon imgForgotPassword = new ImageIcon("src/img/recuperar senha.png");
-	private ImageIcon imgBack = new ImageIcon("src/img/back1.png");
-	
-	// listeners
 	private ActionListener loginActionListener, recuperarSenhaActionListener;
 	private KeyAdapter enterKeyAdapter;
 
 	private ClienteDAO conn;
-	public Cliente mainClient;
 
-	// constructor
 	public LoginJFrame(ClienteDAO conn) {
 		setTitle("Login");
 		setResizable(false);
 
 		this.conn = conn;
-		this.mainClient = Main.mainClient;
 		initComponents();
 		initListeners();
 	}
 
 	private void initComponents() {
-		setIconImage(Main.logo);
+		setIconImage(Toolkit.getDefaultToolkit().getImage(
+				"C:\\Users\\Gui\\Documents\\Guilherme\\GitHub\\projeto-integrador-java-sql\\img\\ART Music logo.png"));
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 600, 650);
 		contentPane = new JPanel();
@@ -118,17 +107,12 @@ public class LoginJFrame extends JFrame {
 		tfdSenha.setBorder(null);
 		panel12.add(tfdSenha);
 
-		if (conn.isRememberMeOn()) {
-			tfdEmail.setText(mainClient.getEmail());
-			tfdSenha.setText(mainClient.getSenha());
-			tfdSenha.setEchoChar('•');
-		}
-
 		// btnVerSenha
 		btnVerSenha = new JButton("");
 		btnVerSenha.setBounds(300, 13, 30, 30);
 		panel12.add(btnVerSenha);
-		btnVerSenha.setIcon(imgOpenEye);
+		btnVerSenha.setIcon(new ImageIcon(
+				"C:\\Users\\Gui\\Documents\\Guilherme\\GitHub\\projeto-integrador-java-sql\\img\\password_see1.png"));
 		btnVerSenha.setContentAreaFilled(false);
 		btnVerSenha.setBorderPainted(false);
 		btnVerSenha.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -169,7 +153,8 @@ public class LoginJFrame extends JFrame {
 
 		// btnBack
 		btnBack = new JButton();
-		btnBack.setIcon(imgBack);
+		btnBack.setIcon(new ImageIcon(
+				"C:\\Users\\Gui\\Documents\\Guilherme\\GitHub\\projeto-integrador-java-sql\\img\\back1.png"));
 		btnBack.setBounds(10, 11, 30, 30);
 		btnBack.setContentAreaFilled(false);
 		btnBack.setBorderPainted(false);
@@ -180,7 +165,8 @@ public class LoginJFrame extends JFrame {
 		lblBackground = new JLabel("");
 		lblBackground.setBounds(0, 0, 584, 611);
 		contentPane.add(lblBackground);
-		lblBackground.setIcon(imgBackground);
+		lblBackground.setIcon(new ImageIcon(
+				"C:\\Users\\Gui\\Documents\\Guilherme\\GitHub\\projeto-integrador-java-sql\\img\\tela login.png"));
 	}
 
 	// initListeners
@@ -255,11 +241,15 @@ public class LoginJFrame extends JFrame {
 		// btnVerSenha listener
 		btnVerSenha.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (btnVerSenha.getIcon().equals(imgOpenEye)) {
-					btnVerSenha.setIcon(imgClosedEye);
+				if (btnVerSenha.getIcon()
+						.toString() == "C:\\Users\\Gui\\Documents\\Guilherme\\GitHub\\projeto-integrador-java-sql\\img\\password_see1.png") {
+					btnVerSenha.setIcon(new ImageIcon(
+							"C:\\Users\\Gui\\Documents\\Guilherme\\GitHub\\projeto-integrador-java-sql\\img\\password_not_see1.png"));
 					tfdSenha.setEchoChar((char) 0);
-				} else if (btnVerSenha.getIcon().equals(imgClosedEye)) {
-					btnVerSenha.setIcon(imgOpenEye);
+				} else if (btnVerSenha.getIcon()
+						.toString() == "C:\\Users\\Gui\\Documents\\Guilherme\\GitHub\\projeto-integrador-java-sql\\img\\password_not_see1.png") {
+					btnVerSenha.setIcon(new ImageIcon(
+							"C:\\Users\\Gui\\Documents\\Guilherme\\GitHub\\projeto-integrador-java-sql\\img\\password_see1.png"));
 					tfdSenha.setEchoChar('•');
 				}
 			}
@@ -272,19 +262,9 @@ public class LoginJFrame extends JFrame {
 				String email = tfdEmail.getText();
 				@SuppressWarnings("deprecation")
 				String senha = tfdSenha.getText();
-				Cliente clienteVerificacao = new Cliente(email, senha);
+				Cliente p = new Cliente(email, senha);
 
-				if (conn.canLogin(clienteVerificacao)) {
-					// set mainClient
-					mainClient = conn.getByEmail(email);
-
-					// store mainClient
-					if (chckbxLembrarDeMim.isSelected()) {
-						conn.storeCredentials(mainClient, true);
-					} else {
-						conn.storeCredentials(mainClient, false);
-					}
-					Main.frameUsuario = new UsuarioJFrame(conn, mainClient);
+				if (conn.login(p)) {
 					Main.frameUsuario.setVisible(true);
 					Main.frameLogin.setVisible(false);
 				} else {
@@ -325,7 +305,8 @@ public class LoginJFrame extends JFrame {
 					dispose();
 					Main.frameApresentacao.setVisible(true);
 				} else {
-					lblBackground.setIcon(imgBackground);
+					lblBackground.setIcon(new ImageIcon(
+							"C:\\Users\\Gui\\Documents\\Guilherme\\GitHub\\projeto-integrador-java-sql\\img\\tela login.png"));
 					panel12.setVisible(true);
 					tfdEmail.setLocation(133, 268);
 					tfdEmail.setText("Email");
@@ -350,7 +331,8 @@ public class LoginJFrame extends JFrame {
 
 	// recuperarSenha
 	private void recuperarSenha() {
-		lblBackground.setIcon(imgForgotPassword);
+		lblBackground.setIcon(new ImageIcon(
+				"C:\\Users\\Gui\\Documents\\Guilherme\\GitHub\\projeto-integrador-java-sql\\img\\recuperar senha.png"));
 		panel12.setVisible(false);
 		tfdEmail.setLocation(133, 327);
 		tfdEmail.setText(null);
