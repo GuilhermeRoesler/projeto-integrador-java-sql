@@ -46,6 +46,9 @@ public class HomeJPanel extends JPanel {
 	public HomeJPanel() {
 		setOpaque(false);
 
+		lblSeusShows = null;
+		btnComprarIngresso = null;
+		showslbl = null;
 		initComponents();
 	}
 
@@ -143,10 +146,4 @@ public class HomeJPanel extends JPanel {
 			}
 		}
 	}
-	
-	public void reloadComponents() {
-		removeAll();
-		initComponents();
-	}
-
 }
