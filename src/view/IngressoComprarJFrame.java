@@ -39,6 +39,7 @@ import model.Evento;
 import utils.ConversorUtils;
 import utils.MaskUtil;
 import utils.MeuModeloTabela1Utils;
+import view.JPanels.HomeJPanel;
 
 public class IngressoComprarJFrame extends JFrame {
 
@@ -308,7 +309,7 @@ public class IngressoComprarJFrame extends JFrame {
 							lblDinheiro.setText(String.valueOf("R$" + newDinheiro + ",00"));
 							Main.conn.updateDinheiro(newDinheiro, Main.mainClient.getId_pessoa());
 							dispose();
-							Main.frameUsuario.reloadComponents();
+							((HomeJPanel) Main.frameUsuario.panels[0]).reloadComponents();
 						}
 					} else {
 						JOptionPane.showMessageDialog(null, "Você não tem dinheiro o suficiente, trabalhe!");

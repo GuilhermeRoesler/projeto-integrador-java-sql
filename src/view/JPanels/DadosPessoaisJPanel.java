@@ -120,8 +120,6 @@ public class DadosPessoaisJPanel extends JPanel {
 	public static void configScrollPane(JScrollPane scrollPane) {
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane.setBorder(null);
-		scrollPane.setOpaque(false);
-		scrollPane.getViewport().setOpaque(false);
 
 		scrollPane.addMouseWheelListener(new MouseWheelListener() {
 			@Override
