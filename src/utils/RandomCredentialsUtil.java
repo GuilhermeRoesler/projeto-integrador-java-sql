@@ -11,18 +11,18 @@ import javax.swing.JLabel;
 
 public class RandomCredentialsUtil {
 	// fileReaders
-	private FileReader frNomes;
-	private FileReader frSobrenomes;
-	private FileReader frCidades;
+	private String strNomes;
+	private String strSobrenomes;
+	private String strCidades;
 	
 	private int numRandomNomeSexo;
 	
 	// constructor
 	public RandomCredentialsUtil() {
 		try {
-			frNomes = new FileReader("resources/nomes.txt");
-			frSobrenomes = new FileReader("resources/sobrenomes.txt");
-			frCidades = new FileReader("resources/cidades.txt");
+			strNomes = "resources/nomes.txt";
+			strSobrenomes = "resources/sobrenomes.txt";
+			strCidades = "resources/cidades.txt";
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -34,7 +34,7 @@ public class RandomCredentialsUtil {
 		ArrayList<String> nomes = new ArrayList<>();
 
 		try {
-			BufferedReader reader = new BufferedReader(frNomes);
+			BufferedReader reader = new BufferedReader(new FileReader(strNomes));
 
 			String line;
 			while ((line = reader.readLine()) != null) {
@@ -58,7 +58,7 @@ public class RandomCredentialsUtil {
 		ArrayList<String> sobrenomes = new ArrayList<>();
 
 		try {
-			BufferedReader reader = new BufferedReader(frSobrenomes);
+			BufferedReader reader = new BufferedReader(new FileReader(strSobrenomes));
 
 			String line;
 			while ((line = reader.readLine()) != null) {
@@ -155,7 +155,7 @@ public class RandomCredentialsUtil {
 		ArrayList<String> cidades = new ArrayList<String>();
 
 		try {
-			BufferedReader reader = new BufferedReader(frCidades);
+			BufferedReader reader = new BufferedReader(new FileReader(strCidades));
 
 			String line;
 			while ((line = reader.readLine()) != null) {
