@@ -19,6 +19,7 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EmptyBorder;
 
 import model.Cliente;
+import utils.FileManager;
 import view.Main;
 
 public class DadosPessoaisJPanel extends JPanel {
@@ -30,7 +31,7 @@ public class DadosPessoaisJPanel extends JPanel {
 	private JLabel[] labels = new JLabel[10];
 	private JTextField[] fields = new JTextField[10];
 	private JButton[] buttons = new JButton[10];
-	private ArrayList<String> credentials = Main.conn.credentialsToArrayList();
+	private ArrayList<String> credentials = FileManager.credentialsToArrayList();
 
 	private final int x = 500;
 	private final int y = 30;
@@ -107,10 +108,11 @@ public class DadosPessoaisJPanel extends JPanel {
 		enviar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Cliente c = new Cliente(Main.frameUsuario.mainClient.getId_pessoa(), fields[0].getText(), fields[1].getText(),
-						fields[2].getText(), fields[3].getText(), fields[4].getText(), fields[5].getText(),
-						fields[6].getText(), fields[7].getText(), fields[8].getText(), fields[9].getText(),
-						Main.frameUsuario.mainClient.getDinheiro(), Main.frameUsuario.mainClient.getDataEntrada());
+				Cliente c = new Cliente(Main.frameUsuario.mainClient.getId_pessoa(), fields[0].getText(),
+						fields[1].getText(), fields[2].getText(), fields[3].getText(), fields[4].getText(),
+						fields[5].getText(), fields[6].getText(), fields[7].getText(), fields[8].getText(),
+						fields[9].getText(), Main.frameUsuario.mainClient.getDinheiro(),
+						Main.frameUsuario.mainClient.getDataEntrada());
 				Main.conn.update(c);
 			}
 		});
@@ -120,6 +122,8 @@ public class DadosPessoaisJPanel extends JPanel {
 	public static void configScrollPane(JScrollPane scrollPane) {
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane.setBorder(null);
+		scrollPane.setOpaque(false);
+		scrollPane.getViewport().setOpaque(false);
 
 		scrollPane.addMouseWheelListener(new MouseWheelListener() {
 			@Override

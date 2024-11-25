@@ -4,12 +4,13 @@ import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import utils.Constants;
 
 public class ApresentacaoJFrame extends JFrame {
 
@@ -20,9 +21,6 @@ public class ApresentacaoJFrame extends JFrame {
 	private JLabel lblBackground;
 	private JButton btnVerShows;
 	
-	// images
-	private ImageIcon imgBackground = new ImageIcon("img/ART Music.png");
-
 	// constructor
 	public ApresentacaoJFrame() {
 		setTitle("Art Music");
@@ -61,8 +59,7 @@ public class ApresentacaoJFrame extends JFrame {
 		});
 
 		// lblBackground
-		lblBackground = new JLabel("");
-		lblBackground.setIcon(imgBackground);
+		lblBackground = new JLabel(Constants.TELA_APRESENTACAO);
 		lblBackground.setBounds(0, 0, 484, 661);
 		contentPane.add(lblBackground);
 	}

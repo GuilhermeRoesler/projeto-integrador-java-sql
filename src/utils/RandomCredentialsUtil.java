@@ -1,78 +1,31 @@
 package utils;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.text.Normalizer;
-import java.util.ArrayList;
 import java.util.Random;
 
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 
 public class RandomCredentialsUtil {
-	// fileReaders
-	private String strNomes;
-	private String strSobrenomes;
-	private String strCidades;
-	
 	private int numRandomNomeSexo;
-	
-	// constructor
-	public RandomCredentialsUtil() {
-		try {
-			strNomes = "resources/nomes.txt";
-			strSobrenomes = "resources/sobrenomes.txt";
-			strCidades = "resources/cidades.txt";
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 
-	// randomNome
+	// generates a random name
 	public String randomNome() {
 		Random random = new Random();
-		ArrayList<String> nomes = new ArrayList<>();
 
-		try {
-			BufferedReader reader = new BufferedReader(new FileReader(strNomes));
+		int size = Constants.FIRST_NAMES.size();
+		int randomIndex = random.nextInt(size);
 
-			String line;
-			while ((line = reader.readLine()) != null) {
-				nomes.add(line);
-			}
+		numRandomNomeSexo = randomIndex; // set the sex
 
-			reader.close();
-
-			int numRandom = random.nextInt(199);
-			numRandomNomeSexo = numRandom;
-			return nomes.get(numRandom);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
+		return Constants.FIRST_NAMES.get(randomIndex);
 	}
 
-	// randomSobrenome
+	// generates a random surname
 	public String randomSobrenome() {
 		Random random = new Random();
-		ArrayList<String> sobrenomes = new ArrayList<>();
-
-		try {
-			BufferedReader reader = new BufferedReader(new FileReader(strSobrenomes));
-
-			String line;
-			while ((line = reader.readLine()) != null) {
-				sobrenomes.add(line);
-			}
-
-			reader.close();
-
-			return sobrenomes.get(random.nextInt(99));
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
+		int size = Constants.LAST_NAMES.size();
+		return Constants.LAST_NAMES.get(random.nextInt(size));
 	}
 
 	// randomEmail
@@ -149,27 +102,11 @@ public class RandomCredentialsUtil {
 		return s;
 	}
 
-	// randomCidade
+	// generates a random city
 	public String randomCidade() {
 		Random r = new Random();
-		ArrayList<String> cidades = new ArrayList<String>();
-
-		try {
-			BufferedReader reader = new BufferedReader(new FileReader(strCidades));
-
-			String line;
-			while ((line = reader.readLine()) != null) {
-				cidades.add(line);
-			}
-
-			reader.close();
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-
-		return cidades.get(r.nextInt(200));
+		int size = Constants.CITIES.size();
+		return Constants.CITIES.get(r.nextInt(size));
 	}
 
 	// randomNumero

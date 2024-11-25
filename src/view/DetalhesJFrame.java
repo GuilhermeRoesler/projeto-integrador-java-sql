@@ -1,7 +1,10 @@
 package view;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -10,13 +13,18 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import model.Evento;
+import utils.Constants;
 import utils.ConversorUtils;
+import view.JPanels.HomeJPanel;
+
+import javax.swing.JButton;
 
 public class DetalhesJFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JLabel lblBackground;
+	private JButton btnExluir;
 	private JLabel[] labels = new JLabel[9];
 
 	private int x1 = 160;
@@ -27,37 +35,18 @@ public class DetalhesJFrame extends JFrame {
 	private int separadorY = 67;
 
 	// image
-	private ImageIcon imgBackground = new ImageIcon("img/detalhes show.png");
 	private Font font = new Font("Montserrat Bold", Font.PLAIN, 15);
 	private Color fontColor = Color.decode("#202020");
 
 	private Evento mainEvent;
 
-	/**
-	 * Launch the application.
-	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					DetalhesJFrame frame = new DetalhesJFrame();
-//					frame.setResizable(false);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
-
-	/**
-	 * Create the frame.
-	 */
 	public DetalhesJFrame(Evento evento) {
 		setTitle("Detalhes");
 		setResizable(false);
 		mainEvent = evento;
 
 		initComponents();
+		addingBackground();
 	}
 
 	private void initComponents() {
@@ -92,16 +81,30 @@ public class DetalhesJFrame extends JFrame {
 			labels[i].setFont(font);
 			labels[i].setForeground(fontColor);
 			contentPane.add(labels[i]);
+			
+			btnExluir = new JButton("Excluir");
+			btnExluir.setBounds(700, 440, 90, 30);
+			btnExluir.setBorder(null);
+			btnExluir.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+			btnExluir.setFont(new Font("Open Sans", Font.BOLD, 14));
+			btnExluir.setBackground(Color.decode("#862323")); // vermelho
+			btnExluir.setForeground(Color.decode("#cad0d6")); // branco
+			contentPane.add(btnExluir);
+			btnExluir.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					Main.participacaoDAO.delete(Main.mainClient, mainEvent);
+					dispose();
+					((HomeJPanel) Main.frameUsuario.pnlHome).update();
+				}
+			});
 		}
-
-		addingBackground();
 	}
 
 	private void addingBackground() {
-		lblBackground = new JLabel();
-		lblBackground.setBounds(0, 0, imgBackground.getIconWidth() + 8, imgBackground.getIconHeight());
-		lblBackground.setIcon(imgBackground);
+		ImageIcon imgBackground = Constants.TELA_DETALHES;
+		lblBackground = new JLabel(imgBackground);
+		lblBackground.setBounds(0, 0, imgBackground.getIconWidth(), imgBackground.getIconHeight());
 		contentPane.add(lblBackground);
 	}
-
 }

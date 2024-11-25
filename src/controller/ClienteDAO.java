@@ -1,10 +1,5 @@
 package controller;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,10 +12,11 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 import model.Cliente;
+import utils.ConversorUtils;
+import utils.FileManager;
 import view.Main;
 
 public class ClienteDAO extends SQLController {
-	private String strLastClient = "resources/lastClient.txt";
 
 	public ClienteDAO() {
 		super();
@@ -35,7 +31,7 @@ public class ClienteDAO extends SQLController {
 			st.setString(2, p.getSobrenome());
 			st.setString(3, p.getEmail());
 			st.setString(4, p.getSenha());
-			st.setString(5, sexoToMysql(p.getSexo()));
+			st.setString(5, ConversorUtils.sexoToMysql(p.getSexo()));
 			st.setString(6, p.getCpf());
 			st.setString(7, p.getTelefone());
 			st.setString(8, nascimentoToMysql(p.getNascimento()));
@@ -224,124 +220,18 @@ public class ClienteDAO extends SQLController {
 	private String nascimentoToMysql(String nascimento) {
 		return LocalDate.parse(nascimento, java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString();
 	}
-
-	private String sexoToMysql(String sexo) {
-		if (sexo.equals("Masculino")) {
-			return "M";
-		} else if (sexo.equals("Feminino")) {
-			return "F";
-		} else {
-			return null;
-		}
-	}
-
-	// save credentials last client
-	public boolean storeCredentials(Cliente c, boolean rememberMe) {
-		try {
-			FileWriter writer = new FileWriter("resources/lastClient.txt");
-			writer.write("");
-			if (rememberMe) {
-				writer.append("1\n");
-			} else {
-				writer.append("0\n");
-			}
-			writer.append(String.valueOf(c.getId_pessoa()) + "\n");
-			writer.append(c.getNome() + "\n");
-			writer.append(c.getSobrenome() + "\n");
-			writer.append(c.getEmail() + "\n");
-			writer.append(c.getSenha() + "\n");
-			writer.append(c.getSexo() + "\n");
-			writer.append(c.getCpf() + "\n");
-			writer.append(c.getTelefone() + "\n");
-			writer.append(c.getNascimento() + "\n");
-			writer.append(c.getCep() + "\n");
-			writer.append(c.getCidade() + "\n");
-			writer.append(String.valueOf(c.getDinheiro()) + "\n");
-			writer.append(c.getDataEntrada() + "\n");
-			writer.close();
-			return true;
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-			return false;
-		} catch (IOException e) {
-			e.printStackTrace();
-			return false;
-		}
-	}
-
-	public boolean isRememberMeOn() {
-		boolean rememberMe;
-		try {
-			BufferedReader reader = new BufferedReader(new FileReader(strLastClient));
-
-			if (reader.readLine().equals("1")) {
-				rememberMe = true;
-			} else {
-				rememberMe = false;
-			}
-
-			// set mainClient
-			Cliente mainClient = new Cliente(Integer.parseInt(reader.readLine()), reader.readLine(), reader.readLine(),
-					reader.readLine(), reader.readLine(), reader.readLine(), reader.readLine(), reader.readLine(),
-					reader.readLine(), reader.readLine(), reader.readLine(), Integer.parseInt(reader.readLine()),
-					reader.readLine());
-			Main.setMainClient(mainClient);
-
-			reader.close();
-			return rememberMe;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
-		}
-	}
-
-	public ArrayList<String> credentialsToArrayList() {
-		ArrayList<String> credentials = new ArrayList<String>();
-		try {
-			BufferedReader reader = new BufferedReader(new FileReader(strLastClient));
-			String line = reader.readLine(); // excluindo byte de verificação
-			line = reader.readLine(); // excluindo id
-			while ((line = reader.readLine()) != null) {
-				credentials.add(line);
-			}
-			reader.close();
-			return credentials;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-
-	public Cliente getMainClient() {
-		try {
-			BufferedReader reader = new BufferedReader(new FileReader(strLastClient));
-			reader.readLine(); // excluindo byte de verificação
-
-			// set mainClient
-			Cliente c = new Cliente(Integer.parseInt(reader.readLine()), reader.readLine(), reader.readLine(),
-					reader.readLine(), reader.readLine(), reader.readLine(), reader.readLine(), reader.readLine(),
-					reader.readLine(), reader.readLine(), reader.readLine(), Integer.parseInt(reader.readLine()),
-					reader.readLine());
-
-			reader.close();
-			return c;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
 	
-	public boolean updateDinheiro(int dinheiro, int id) {
+	public boolean updateDinheiro(int novoValor, int idCliente) {
 		String query = "UPDATE Cliente SET dinheiro = ? WHERE id_cliente = ?";
 
-		Main.mainClient.setDinheiro(dinheiro);
-		Main.conn.storeCredentials(Main.mainClient, Main.conn.isRememberMeOn());
-		Main.frameUsuario.updateDinheiro(dinheiro);
+		Main.mainClient.setDinheiro(novoValor);
+		FileManager.storeCredentials(Main.mainClient, FileManager.isRememberMeOn());
+		Main.frameUsuario.updateDinheiro(novoValor);
 		
 		try {
 			PreparedStatement st = db.prepareStatement(query);
-			st.setInt(1, dinheiro);
-			st.setInt(2, id);
+			st.setInt(1, novoValor);
+			st.setInt(2, idCliente);
 
 			int numRegistros = st.executeUpdate();
 			System.out.printf("%d record(s) registered\n", numRegistros);

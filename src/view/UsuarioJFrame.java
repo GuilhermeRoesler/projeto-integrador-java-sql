@@ -20,8 +20,9 @@ import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-import controller.ClienteDAO;
 import model.Cliente;
+import utils.Constants;
+import utils.FileManager;
 import view.JPanels.AjudaJPanel;
 import view.JPanels.AtividadeJPanel;
 import view.JPanels.ConfiguracoesJPanel;
@@ -34,44 +35,27 @@ import view.JPanels.OptionJPanel;
 public class UsuarioJFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	private JPanel contentPane, pnlOption, pnlHeader, pnlHome, pnlConfiguracoes, pnlAtividade, pnlNotificacoes, pnlAjuda, pnlDinheiro;
-	private JScrollPane pnlDadosPessoais;
-	private JLabel lblImagemPerfil, lblNome, lblDinheiro, lblBackground;
+	public JPanel contentPane, pnlOption, pnlHeader, pnlHome, pnlConfiguracoes, pnlAtividade, pnlNotificacoes,
+			pnlAjuda, pnlDinheiro;
+	public JScrollPane pnlDadosPessoais;
+	private JLabel lblImagemPerfil, lblNome, lblimgDinheiro, lblDinheiro, lblBackground;
 	private JButton[] btnsConfig;
 	public JComponent[] panels;
 
 	// images and fonts
 	private Font font1 = new Font("Open Sans", Font.BOLD, 20);
 	private Color fontColor = Color.decode("#cad0d6");
-	private ImageIcon imgProfilePic = new ImageIcon("img/default_profile_pic1.png");
 
-	private ClienteDAO conn;
 	public Cliente mainClient;
 
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					UsuarioJFrame frame = new UsuarioJFrame();
-//					frame.setLocationRelativeTo(null);
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
-
-	public UsuarioJFrame(ClienteDAO conn, Cliente mainClient) {
+	public UsuarioJFrame(Cliente mainClient) {
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setTitle("Art Music");
 		setResizable(false);
 		setIconImage(Main.logo);
-
-		this.conn = conn;
+		
 		this.mainClient = mainClient;
 		initComponents();
-		addingActionListeners();
 		addingBackground();
 	}
 
@@ -81,11 +65,9 @@ public class UsuarioJFrame extends JFrame {
 		setResizable(false);
 		setIconImage(Main.logo);
 
-		this.conn = Main.conn;
-		mainClient = conn.getMainClient();
+		mainClient = FileManager.getMainClient();
 		Main.frameUsuario = this;
 		initComponents();
-		addingActionListeners();
 		addingBackground();
 	}
 
@@ -102,11 +84,16 @@ public class UsuarioJFrame extends JFrame {
 		// lblDinheiro
 		lblDinheiro = new JLabel();
 		lblDinheiro.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblDinheiro.setBounds(1688, 20, 182, 31);
+		lblDinheiro.setBounds(1638, 20, 182, 31);
 		lblDinheiro.setText("R$" + mainClient.getDinheiro() + ",00");
 		lblDinheiro.setFont(font1);
 		lblDinheiro.setForeground(fontColor);
 		contentPane.add(lblDinheiro);
+		
+		// lblimgDinheiro
+		lblimgDinheiro = new JLabel(Constants.COIN);
+		lblimgDinheiro.setBounds(lblDinheiro.getX() + lblDinheiro.getWidth() + 20, 20, 30, 30);
+		contentPane.add(lblimgDinheiro);
 
 		// pnlHeader
 		pnlHeader = new JPanel();
@@ -117,8 +104,7 @@ public class UsuarioJFrame extends JFrame {
 		contentPane.add(pnlHeader);
 
 		// lblImagemPerfil
-		lblImagemPerfil = new JLabel();
-		lblImagemPerfil.setIcon(imgProfilePic);
+		lblImagemPerfil = new JLabel(Constants.PROFILE_PIC_DEFAULT);
 		lblImagemPerfil.setPreferredSize(new Dimension(50, 50));
 		lblImagemPerfil.setBackground(Color.blue);
 		lblImagemPerfil.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -142,52 +128,7 @@ public class UsuarioJFrame extends JFrame {
 		pnlOption.setBackground(Color.decode("#0d1117"));
 		contentPane.add(pnlOption);
 
-		// pnlHome
-		pnlHome = new HomeJPanel();
-		pnlHome.setBounds(0, 100, 1920, 950);
-		contentPane.add(pnlHome);
-		pnlHome.setLayout(new BoxLayout(pnlHome, BoxLayout.Y_AXIS));
-		
-		// pnlConfiguracoes
-		pnlConfiguracoes = new ConfiguracoesJPanel();
-		pnlConfiguracoes.setBounds(300, 100, 1320, 950);
-		pnlConfiguracoes.setVisible(false);
-		contentPane.add(pnlConfiguracoes);
-
-		// pnlDadosPessoais
-		pnlDadosPessoais = new JScrollPane(new DadosPessoaisJPanel());
-		pnlDadosPessoais.setBounds(300, 100, 1320, 950);
-		DadosPessoaisJPanel.configScrollPane(pnlDadosPessoais);
-		contentPane.add(pnlDadosPessoais);
-		pnlDadosPessoais.setVisible(false);
-		pnlDadosPessoais.setOpaque(false);
-		pnlDadosPessoais.getViewport().setOpaque(false);
-		
-		// pnlAtividade
-		pnlAtividade = new AtividadeJPanel();
-		pnlAtividade.setBounds(300, 100, 1320, 950);
-		pnlAtividade.setVisible(false);
-		contentPane.add(pnlAtividade);
-		
-		// pnlNotificacoes
-		pnlNotificacoes = new NotificacoesJPanel();
-		pnlNotificacoes.setBounds(300, 100, 1320, 950);
-		pnlNotificacoes.setVisible(false);
-		contentPane.add(pnlNotificacoes);
-		
-		// pnlAjuda
-		pnlAjuda = new AjudaJPanel();
-		pnlAjuda.setBounds(300, 100, 1320, 950);
-		pnlAjuda.setVisible(false);
-		contentPane.add(pnlAjuda);
-		
-		// pnlDinheiro
-		pnlDinheiro = new DinheiroJPanel();
-		pnlDinheiro.setBounds(300, 100, 1320, 950);
-		pnlDinheiro.setVisible(false);
-		contentPane.add(pnlDinheiro);
-
-		panels = new JComponent[] { pnlHome, pnlConfiguracoes, pnlDadosPessoais, pnlAtividade, pnlNotificacoes, pnlAjuda, pnlDinheiro };
+		loadComponents();
 
 		btnsConfig = ((OptionJPanel) pnlOption).getButtons();
 		int i = 0;
@@ -207,17 +148,60 @@ public class UsuarioJFrame extends JFrame {
 		}
 	}
 
-	private void addingActionListeners() {
-	}
-
 	private void addingBackground() {
 		lblBackground = new JLabel();
 		lblBackground.setBounds(0, 0, 1920, 1080);
 		lblBackground.setIcon(new ImageIcon());
 		contentPane.add(lblBackground);
 	}
-	
+
 	public void updateDinheiro(int i) {
 		lblDinheiro.setText("R$" + i + ",00");
+	}
+
+	public void loadComponents() {
+		// initialize all panels
+		pnlHome = new HomeJPanel();
+		pnlConfiguracoes = new ConfiguracoesJPanel();
+		pnlDadosPessoais = new JScrollPane(new DadosPessoaisJPanel());
+		pnlAtividade = new AtividadeJPanel();
+		pnlNotificacoes = new NotificacoesJPanel();
+		pnlAjuda = new AjudaJPanel();
+		pnlDinheiro = new DinheiroJPanel();
+
+		panels = new JComponent[] { pnlHome, pnlConfiguracoes, pnlDadosPessoais, pnlAtividade, pnlNotificacoes,
+				pnlAjuda, pnlDinheiro };
+
+		for (JComponent panel : panels) {
+			panel.setBounds(300, 100, 1320, 950);
+			panel.setVisible(false);
+			contentPane.add(panel);
+		}
+
+		pnlHome.setVisible(true); // set home visible
+		DadosPessoaisJPanel.configScrollPane(pnlDadosPessoais); // config scroll pane
+
+	}
+
+	public void reloadComponents() {
+		for (JComponent panel : panels) {
+			panel.removeAll();
+			panel.revalidate();
+			panel.repaint();
+			remove(panel);
+		}
+
+		loadComponents();
+		atualizarPanels();
+
+		revalidate();
+		repaint();
+	}
+
+	public void atualizarPanels() {
+		for (JComponent panel : panels) {
+			panel.revalidate();
+			panel.repaint();
+		}
 	}
 }

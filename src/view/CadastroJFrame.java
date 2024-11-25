@@ -13,7 +13,6 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -28,6 +27,7 @@ import javax.swing.border.EmptyBorder;
 
 import controller.ClienteDAO;
 import model.Cliente;
+import utils.Constants;
 import utils.MaskUtil;
 import utils.RandomCredentialsUtil;
 
@@ -55,10 +55,6 @@ public class CadastroJFrame extends JFrame {
 	protected JButton btnCadastrar, btnRandom, btnBack;
 	protected JComboBox<String> cmbboxSexo;
 
-	// images
-	private ImageIcon imgBack = new ImageIcon("img/back1.png");
-	private ImageIcon imgBackground = new ImageIcon("img/tela cadastro.png");
-
 	private ClienteDAO conn;
 	private RandomCredentialsUtil rcu = new RandomCredentialsUtil();
 	
@@ -70,7 +66,7 @@ public class CadastroJFrame extends JFrame {
 		setTitle("Cadastro");
 		setResizable(false);
 		setIconImage(Main.logo);
-
+		
 		this.conn = conn;
 		initComponents();
 
@@ -94,8 +90,7 @@ public class CadastroJFrame extends JFrame {
 		contentPane.setLayout(null);
 
 		// btnBack
-		btnBack = new JButton();
-		btnBack.setIcon(imgBack);
+		btnBack = new JButton(Constants.BACK);
 		btnBack.setBounds(10, 11, 30, 30);
 		btnBack.setContentAreaFilled(false);
 		btnBack.setBorderPainted(false);
@@ -298,8 +293,7 @@ public class CadastroJFrame extends JFrame {
 		btnRandom.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		contentPane.add(btnRandom);
 
-		lblBackground = new JLabel("");
-		lblBackground.setIcon(imgBackground);
+		lblBackground = new JLabel(Constants.TELA_CADASTRO);
 		lblBackground.setBounds(0, 0, 834, 611);
 		contentPane.add(lblBackground);
 

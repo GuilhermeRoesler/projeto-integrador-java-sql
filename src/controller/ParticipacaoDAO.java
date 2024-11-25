@@ -48,8 +48,21 @@ public class ParticipacaoDAO extends SQLController {
 		return true;
 	}
 	
-	public boolean delete() {
-		return true;
+	public boolean delete(Cliente c, Evento e) {
+		String query = "DELETE FROM Participacao WHERE id_cliente = ? AND id_evento = ?";
+		
+		try {
+			PreparedStatement st = db.prepareStatement(query);
+			st.setInt(1, c.getId_pessoa());
+			st.setInt(2, e.getId_evento());
+			
+			int numRegistros = st.executeUpdate();
+			System.out.printf("%d record(s) registered\n", numRegistros);
+			return true;
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+			return false;
+		}
 	}
 
 }

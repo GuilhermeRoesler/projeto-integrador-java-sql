@@ -19,4 +19,14 @@ public class ConversorUtils {
 
 		return dataFormatada;
 	}
+
+	public static String sexoToMysql(String sexo) {
+		if (sexo.equals("Masculino")) {
+			return "M";
+		} else if (sexo.equals("Feminino")) {
+			return "F";
+		} else {
+			return null;
+		}
+	}
 }

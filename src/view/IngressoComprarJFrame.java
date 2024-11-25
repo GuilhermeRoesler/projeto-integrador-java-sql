@@ -136,7 +136,7 @@ public class IngressoComprarJFrame extends JFrame {
 
 		// lblPreco
 		lblPreco = new JLabel("R$0.00");
-		lblPreco.setBounds(345, y, 66, 30);
+		lblPreco.setBounds(345, y, 80, 30);
 		lblPreco.setFont(font3);
 		lblPreco.setForeground(colorDefaultForeground);
 		contentPane.add(lblPreco);
@@ -309,7 +309,8 @@ public class IngressoComprarJFrame extends JFrame {
 							lblDinheiro.setText(String.valueOf("R$" + newDinheiro + ",00"));
 							Main.conn.updateDinheiro(newDinheiro, Main.mainClient.getId_pessoa());
 							dispose();
-							((HomeJPanel) Main.frameUsuario.panels[0]).reloadComponents();
+							((HomeJPanel) Main.frameUsuario.pnlHome).update();
+//							Main.frameUsuario.reloadComponents();
 						}
 					} else {
 						JOptionPane.showMessageDialog(null, "Você não tem dinheiro o suficiente, trabalhe!");
@@ -333,14 +334,18 @@ public class IngressoComprarJFrame extends JFrame {
 	}
 
 	private ComboBoxModel<String> comboBoxModel() {
-		ArrayList<String> nomes = new ArrayList<>();
-		nomes.add("Selecione");
+		ArrayList<String> showsDisponiveis = new ArrayList<>();
+		ArrayList<String> showsComprados = eventoDAO.obterShowsComprados(Main.mainClient.getId_pessoa());
+		showsDisponiveis.add("Selecione");
 
 		for (Evento evento : eventos) {
-			nomes.add(evento.getNome());
+			String nomeShow = evento.getNome();
+			if (!showsComprados.contains(nomeShow)) {
+				showsDisponiveis.add(nomeShow);
+			}
 		}
 
-		return new DefaultComboBoxModel<String>(nomes.toArray(new String[0]));
+		return new DefaultComboBoxModel<String>(showsDisponiveis.toArray(new String[0]));
 	}
 
 	private AbstractTableModel setTableModel() {
